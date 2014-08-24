@@ -143,10 +143,112 @@ public class CMYKController implements ServletContextAware {
                 }
                 
             } catch (Exception e) {
+            	e.printStackTrace();
             	map.put("error", "Failed to upload "+fileName+": " + e.getMessage());
             }
         } else {
         	map.put("error", "Unable to upload. File is empty.");
+        }
+    	
+		return gson.toJson(map);
+	}
+	
+	@RequestMapping(value = "/image", method = RequestMethod.POST)
+	@ResponseBody
+	public String getCMYKCalcResult(
+			@RequestParam(value = "cyan", required=true) String cyan,
+			@RequestParam(value = "magenta", required=true) String magenta,
+			@RequestParam(value = "yellow", required=true) String yellow,
+			@RequestParam(value = "black", required=true) String black,
+			@RequestParam(value = "actual", required=true) String actual_size,
+			@RequestParam(value = "paper", required=true) int paper_size,
+			@RequestParam(value = "ppi", required=true) int ppi,
+			@RequestParam(value = "gray", required=true) String grayScale,
+			@RequestParam(value = "printer", required=true) String printer_id) {
+
+		Gson gson = new Gson();
+		Map<String, Object> map = new HashMap<String, Object>();		
+		
+		if(cyan!=null && !"".equals(cyan) 
+			&& magenta!=null && !"".equals(magenta)
+			&& yellow!=null && !"".equals(yellow)
+			&& black!=null && !"".equals(black)) {
+			
+            try {
+                
+                Printer printer = null;
+                String sql = "SELECT * FROM printer WHERE id = ?";
+                List<Map<String, Object>> rows = mysqlJdbcTemplate.queryForList(sql, new Object[]{new Integer(printer_id)});
+                for (Map<String, Object> row : rows) {
+                	printer = new Printer();
+                    printer.setId((Integer)row.get("id"));
+                    printer.setBrand((String)row.get("brand"));
+                    printer.setType((String)row.get("type"));
+                    printer.setTitle((String)row.get("title"));
+                    printer.setImage((String)row.get("image"));
+                    printer.setPrice((Float)row.get("price"));
+                    printer.setUrl((String)row.get("url"));
+                    printer.setIccFile((String)row.get("icc_file"));
+                    printer.setFunctions((String)row.get("functions"));
+                    printer.setPrintSpeedBlack((Float)row.get("print_speed_black"));
+                    printer.setPrintSpeedColor((Float)row.get("print_speed_color"));
+                    printer.setMaxInputCapacity((Integer)row.get("max_input_capacity"));
+                    printer.setMaxMonthlyDutyCycle((Integer)row.get("max_monthly_duty_cycle"));
+                    printer.setAutoDuplex((String)row.get("auto_duplex"));
+                    printer.setInkCyanPrice((Float)row.get("ink_cyan_price"));
+                    printer.setInkCyanYield((Integer)row.get("ink_cyan_yield"));
+                    printer.setInkMagentaPrice((Float)row.get("ink_magenta_price"));
+                    printer.setInkMagentaYield((Integer)row.get("ink_magenta_yield"));
+                    printer.setInkYellowPrice((Float)row.get("ink_yellow_price"));
+                    printer.setInkYellowYield((Integer)row.get("ink_yellow_yield"));
+                    printer.setInkBlackPrice((Float)row.get("ink_black_price"));
+                    printer.setInkBlackYield((Integer)row.get("ink_black_yield"));
+                }
+        			
+                if(printer == null) {
+                	map.put("error", "Printer not found ("+printer_id+")");
+                	
+                } else {
+                	
+                	String uploadFolder = servletContext.getRealPath("/");
+                	
+	                CMYKFileProcessor processor = new CMYKFileProcessor(new BigDecimal(cyan), new BigDecimal(magenta), new BigDecimal(yellow), new BigDecimal(black), 
+	                		uploadFolder + "/upload/icc/" + printer.getIccFile(), 
+	                		toBoolean(actual_size), paper_size, ppi, printer, toBoolean(grayScale));
+	                
+	                map.put("printer", printer);
+	                
+	                Map<String, Object> processorMap = new HashMap<String, Object>();
+	                BigDecimal [] cmyk = processor.getCMYK();
+	                processorMap.put("cyan", cmyk[CMYKFileProcessor.C]);
+	                processorMap.put("magenta", cmyk[CMYKFileProcessor.M]);
+	                processorMap.put("yellow", cmyk[CMYKFileProcessor.Y]);
+	                processorMap.put("black", cmyk[CMYKFileProcessor.K]);
+	                
+	                BigDecimal totalCostPerPage;
+	    			if(toBoolean(grayScale))
+	    				totalCostPerPage = processor.getInkCost_GrayScale();
+	    			else
+	    				totalCostPerPage = processor.getInkCost();
+	    			
+	    			processorMap.put("tcpp", totalCostPerPage);
+	                map.put("result", processorMap);
+	                
+	                Map<String, Object> optionsMap = new HashMap<String, Object>();
+	                optionsMap.put("actual_size", actual_size);
+	                optionsMap.put("paper_size", paper_size);
+	                optionsMap.put("ppi", ppi);
+	                optionsMap.put("printer_id", printer_id);
+	                optionsMap.put("grayscale", grayScale);
+	                map.put("options", optionsMap);
+                }
+                
+            } catch (Exception e) {
+            	e.printStackTrace();
+            	map.put("error", "Failed to calculate C:"+cyan+",M:"+magenta+",Y:"+yellow+",K:"+black+" " + e.getMessage());
+            }
+        } else {
+        	map.put("error", "Unable to calculate. CMYK is empty.");
         }
     	
 		return gson.toJson(map);

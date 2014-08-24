@@ -10,7 +10,10 @@ form { display: block; margin: 20px auto; background: #eee; border-radius: 10px;
 </style>
 </head>
 <body>
-<form id="myForm" action="/picc/cmyk/upload/image" method="post" enctype="multipart/form-data">
+<table width=100%>
+<tr>
+<td width=50%>
+<form id="imageForm" action="/picc/cmyk/upload/image" method="post" enctype="multipart/form-data">
      <input type="file" size="60" name="img">     
      <br><br>
      Actual Size: <input type="radio" name="actual" value="Yes" checked> Yes   <input type="radio" name="actual" value="No"> No
@@ -37,7 +40,41 @@ form { display: block; margin: 20px auto; background: #eee; border-radius: 10px;
      <br><br>
      <input type="submit" value="Upload">			 
  </form>
- 
+</td>
+<td>
+<form id="cmykForm" action="/picc/cmyk/image" method="post" enctype="multipart/form-data">
+     Cyan: <input type="text" name="cyan" size="3" value="25">% 
+     Magenta: <input type="text" name="magenta" size="3" value="25">% 
+     Yellow: <input type="text" name="yellow" size="3" value="25">% 
+     Black: <input type="text" name="black" size="3" value="25">%    
+     <br><br>
+     Actual Size: <input type="radio" name="actual" value="Yes" checked> Yes   <input type="radio" name="actual" value="No"> No
+     <br><br>
+     Paper Size: <select name="paper">
+     				<option value="0">A0</option>
+     				<option value="1">A1</option>
+     				<option value="2">A2</option>
+     				<option value="3">A3</option>
+     				<option value="4">A4</option>
+     				<option value="5">A5</option>
+     				<option value="6">A6</option>
+     				<option value="7">A7</option>
+     				<option value="8">A8</option>
+     				<option value="9">A9</option>
+     				<option value="10">A10</option>
+     			 </select>
+     <br><br>
+     Printer: <input type="text" name="printer" value="1">
+     <br><br>
+     PPI:<input type="text" name="ppi" value="300">
+     <br><br>
+     Grayscale: <input type="radio" name="gray" value="No" checked> No  <input type="radio" name="gray" value="Yes" > Yes   
+     <br><br>
+     <input type="submit" value="Calculate">			 
+ </form>
+</td>
+</tr>
+</table> 
  <div id="progress">
         <div id="bar"></div>
         <div id="percent">0%</div >
@@ -87,8 +124,8 @@ $(document).ready(function()
     }
  
 }; 
- 
-     $("#myForm").ajaxForm(options);
+     $("#imageForm").ajaxForm(options);
+     $("#cmykForm").ajaxForm(options);
  
 });
  
