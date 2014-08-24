@@ -160,6 +160,8 @@ public class CMYKController implements ServletContextAware {
 			@RequestParam(value = "magenta", required=true) String magenta,
 			@RequestParam(value = "yellow", required=true) String yellow,
 			@RequestParam(value = "black", required=true) String black,
+			@RequestParam(value = "width", required=true) int img_width,
+			@RequestParam(value = "height", required=true) int img_height,
 			@RequestParam(value = "actual", required=true) String actual_size,
 			@RequestParam(value = "paper", required=true) int paper_size,
 			@RequestParam(value = "ppi", required=true) int ppi,
@@ -209,12 +211,9 @@ public class CMYKController implements ServletContextAware {
                 	map.put("error", "Printer not found ("+printer_id+")");
                 	
                 } else {
-                	
-                	String uploadFolder = servletContext.getRealPath("/");
-                	
+                	                	
 	                CMYKFileProcessor processor = new CMYKFileProcessor(new BigDecimal(cyan), new BigDecimal(magenta), new BigDecimal(yellow), new BigDecimal(black), 
-	                		uploadFolder + "/upload/icc/" + printer.getIccFile(), 
-	                		toBoolean(actual_size), paper_size, ppi, printer, toBoolean(grayScale));
+	                		img_width, img_height, toBoolean(actual_size), paper_size, ppi, printer, toBoolean(grayScale));
 	                
 	                map.put("printer", printer);
 	                

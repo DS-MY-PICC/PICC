@@ -12,7 +12,7 @@ form { display: block; margin: 20px auto; background: #eee; border-radius: 10px;
 <body>
 <table width=100%>
 <tr>
-<td width=50%>
+<td width=50%  valign="top">
 <form id="imageForm" action="/picc/cmyk/upload/image" method="post" enctype="multipart/form-data">
      <input type="file" size="60" name="img">     
      <br><br>
@@ -41,12 +41,14 @@ form { display: block; margin: 20px auto; background: #eee; border-radius: 10px;
      <input type="submit" value="Upload">			 
  </form>
 </td>
-<td>
+<td valign="top">
 <form id="cmykForm" action="/picc/cmyk/image" method="post" enctype="multipart/form-data">
      Cyan: <input type="text" name="cyan" size="3" value="25">% 
      Magenta: <input type="text" name="magenta" size="3" value="25">% 
      Yellow: <input type="text" name="yellow" size="3" value="25">% 
      Black: <input type="text" name="black" size="3" value="25">%    
+     <br><br>
+     Width: <input type="text" name="width" size="4" value="800"> Height: <input type="text" name="height" size="4" value="600">
      <br><br>
      Actual Size: <input type="radio" name="actual" value="Yes" checked> Yes   <input type="radio" name="actual" value="No"> No
      <br><br>
@@ -90,6 +92,9 @@ $(document).ready(function()
     var options = { 
     beforeSend: function() 
     {
+    	$("pre").text("");
+    	$("#message").html("");
+    	
         $("#progress").show();
         //clear everything
         $("#bar").width('0%');

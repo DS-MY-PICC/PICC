@@ -112,23 +112,14 @@ public final class CMYKFileProcessor {
 	}
 	
 	public CMYKFileProcessor(BigDecimal cyan, BigDecimal magenta, BigDecimal yellow, BigDecimal black, 
-			String iccPath, boolean actual_size, int paper_size, int ppi, Printer yield, boolean grayScale) throws Exception{
+			int img_width, int img_height, boolean actual_size, int paper_size, int ppi, Printer yield, boolean grayScale) throws Exception{
 		try{
 						
-			// Register ICC
-			if(iccPath == null || iccPath.isEmpty())
-				iccPath = DEFAULT_ICC_FILE;
-			
-			filteredImage = addSpecificICCProfile(image, iccPath);
-
 			// Set CMYK Value
-			CMYK[C] = cyan;
-			CMYK[M] = magenta;
-			CMYK[Y] = yellow;
-			CMYK[K] = black;	
+			CMYK = new BigDecimal[]{cyan,magenta,yellow,black};
 			
 			// Calculate Print PPI based on A4
-			PPI = calculatePPIForPrint(image.getWidth(), image.getHeight(), DEFAULT_WI, DEFAULT_HI);
+			PPI = calculatePPIForPrint(img_width, img_height, DEFAULT_WI, DEFAULT_HI);
 			//System.out.println(PPI);
 			// Calculate Total Ink Cost for A4
 			calculateTotalInkCostPerA4(yield);
