@@ -1,0 +1,226 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="${packageName}.${activityClass}" 
+    android:background="#000000">
+
+    <RelativeLayout 
+        android:id="@+id/rlPic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp">
+	    <ImageView
+	        android:id="@+id/ivWhiteBackground"
+	        android:layout_width="150dp"
+	        android:layout_height="150dp"
+	        android:layout_alignParentLeft="true"
+	        android:layout_alignParentTop="true"	        
+	        android:background="#FFFFFF" 
+	        android:layout_centerInParent="true"/>
+
+	    <ImageView
+	        android:id="@+id/ivPic"
+	        android:layout_width="130dp"
+	        android:layout_height="130dp"
+	        android:layout_centerHorizontal="true"
+	        android:layout_centerVertical="true"
+	        android:src="@drawable/abc_ab_bottom_solid_dark_holo" />
+    </RelativeLayout>
+
+    <TableLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/rlPic"
+        android:layout_below="@+id/rlPic"
+        android:layout_marginTop="15dp" >
+
+        <TableRow
+            android:id="@+id/trPageSize"
+            android:layout_width="fill_parent"
+            android:layout_height="20dp" >
+            <TextView 
+                android:id="@+id/tvPageSize"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="#FFFFFF"
+                android:textSize="15dp"
+                android:text="Page Size"/>
+            
+            <TextView 
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="#FFFFFF"
+                android:textSize="15dp"
+                android:text=":"/>
+            
+            <Spinner 
+                android:id="@+id/spPageSize"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/trPaperType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+            
+            <TextView 
+                android:id="@+id/tvPaperType"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="#FFFFFF"
+                android:textSize="15dp"
+                android:text="Page Type"/>
+            
+            <TextView 
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="#FFFFFF"
+                android:textSize="15dp"
+                android:text=":"/>
+            
+            <Spinner 
+                android:id="@+id/spPaperType"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                />
+            
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/trImageResolution"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+            
+            <TextView 
+                android:id="@+id/tvImageResolution"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="#FFFFFF"
+                android:textSize="15dp"
+                android:text="Image Resolution"/>
+            
+            <TextView 
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="#FFFFFF"
+                android:textSize="15dp"
+                android:text=":"/>
+            
+            <Spinner 
+                android:id="@+id/spImageResolution"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                />
+            
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/trPrintMode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+            
+            <TextView 
+                android:id="@+id/tvPrintMode"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="#FFFFFF"
+                android:textSize="15dp"
+                android:text="Print Mode"/>
+            
+            <TextView 
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="#FFFFFF"
+                android:textSize="15dp"
+                android:text=":"/>
+            
+            <Spinner 
+                android:id="@+id/spPrintMode"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                />
+            
+        </TableRow>
+        
+        <TableRow
+            android:id="@+id/trPrintVolume"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+            
+            <TextView 
+                android:id="@+id/tvPrintVolume"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="#FFFFFF"
+                android:textSize="15dp"
+                android:text="Print Volume"/>
+            
+            <TextView 
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="#FFFFFF"
+                android:textSize="15dp"
+                android:text=":"/>
+            
+            <Spinner 
+                android:id="@+id/spPrintVolume"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                />
+            
+        </TableRow>
+        
+        <TableRow
+            android:id="@+id/trPrintPeriod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+            
+            <TextView 
+                android:id="@+id/tvPrintPeriod"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="#FFFFFF"
+                android:textSize="15dp"
+                android:text="Print Period"/>
+            
+            <TextView 
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="#FFFFFF"
+                android:textSize="15dp"
+                android:text=":"/>
+            
+            <Spinner 
+                android:id="@+id/spPrintPeriod"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                />
+            
+        </TableRow>
+        
+    </TableLayout>
+
+    <TextView
+        android:id="@+id/tvPrinter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/rlPic"
+        android:layout_marginRight="19dp"
+        android:layout_marginTop="22dp"
+        android:text="printer selected" 
+        android:textColor="#FFFFFF"/>
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/tvPrinter"
+        android:layout_below="@+id/tvPrinter"
+        android:onClick="onClickSubmit"
+        android:text="submit" />
+
+</RelativeLayout>

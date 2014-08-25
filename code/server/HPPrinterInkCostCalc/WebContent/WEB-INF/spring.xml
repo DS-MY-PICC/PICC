@@ -21,7 +21,7 @@
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url" value="jdbc:mysql://localhost:3306/picc" />
 		<property name="username" value="root" />
-		<property name="password" value="" />
+		<property name="password" value="admin123" />
 	</bean>
 
 </beans>

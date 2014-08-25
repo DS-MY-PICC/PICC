@@ -1,0 +1,106 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000"
+    tools:context="${packageName}.${activityClass}" >
+	
+    <RelativeLayout 
+        android:id="@+id/rlPic"
+        android:layout_width="170dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="15dp">
+	        <ImageView
+	        android:id="@+id/ivBlueBackground"
+	        android:layout_width="170dp"
+	        android:layout_height="150dp"
+	       	android:layout_centerInParent="true"
+	        android:layout_marginTop="50dp"
+	        android:background="#FFFFFF" />
+
+	        <ImageView
+	            android:id="@+id/ivUploadImage"
+	            android:layout_width="150dp"
+	            android:layout_height="130dp"
+	            android:layout_centerHorizontal="true"
+	            android:layout_centerVertical="true"
+	            android:background="#0096d6" />
+
+	        <TextView
+	            android:id="@+id/tvYourImage"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_centerHorizontal="true"
+	            android:layout_centerVertical="true"
+	            android:fontFamily="HPFutura Book"
+	            android:textColor="#000000"
+	            android:textStyle="bold"
+	            android:text="Your Image"
+	            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    </RelativeLayout>
+    
+    <ImageButton
+            android:id="@+id/imageButton1"
+            android:layout_width="wrap_content"
+            android:background="#000000"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:layout_marginRight="15dp"
+            android:onClick="onClickNext"
+            android:src="@drawable/nextbutton" />
+
+    <TextView
+        android:id="@+id/tvAddPicture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/rlPic"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="35dp"
+        android:text="Add an Picture:"
+        android:textColor="#FFFFFF"
+        android:fontFamily="HPFutura Book"
+        android:textStyle="bold"
+        android:textSize="20dp" />
+
+    <RelativeLayout
+        android:id="@+id/rlCamera"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvAddPicture"
+        android:layout_marginTop="30dp"
+        android:layout_alignTop="@+id/rlPic"
+        android:layout_toRightOf="@+id/rlPic" >
+	        
+        <ImageButton 
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_margin="5dp"
+            android:onClick="cameraUpload"
+            android:background="#000000"
+            android:src="@drawable/takeimage"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/rlCamera"
+        android:layout_alignRight="@+id/rlCamera"
+        android:layout_below="@+id/rlCamera"
+        android:layout_alignBottom="@+id/rlPic" >
+        
+        <ImageButton 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:onClick="galleryUpload"
+            android:layout_margin="5dp"
+            android:background="#000000"            
+            android:src="@drawable/fromgallery"/>
+    </RelativeLayout>
+
+</RelativeLayout>
