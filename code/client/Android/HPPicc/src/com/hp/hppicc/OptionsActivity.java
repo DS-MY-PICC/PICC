@@ -37,6 +37,7 @@ public class OptionsActivity extends Activity {
 		
 	TextView tvPrinter;
 	Spinner spinner2;
+	int printerImage;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +53,8 @@ public class OptionsActivity extends Activity {
 		
 		printerId = getIntent().getStringExtra("printer");
 		filePath = getIntent().getStringExtra( "filePath" );
+		printerImage = getIntent().getIntExtra("printImage", R.drawable.oofficejet6600);
+		
 		Log.d("Optionsitems", "printer: " + printerId + "\n" + "filePath: " + filePath );
 		
 		if(filePath != null && !filePath.isEmpty())
@@ -172,6 +175,7 @@ public class OptionsActivity extends Activity {
 		ResultItems.putExtra("printMode", httpPG.getPrintMode());
 		ResultItems.putExtra("printVolume", httpPG.getPrintVolume());
 		ResultItems.putExtra("printPeriod", httpPG.getPrintPeriod());
+		ResultItems.putExtra("printerImage", printerImage);
 		
 		Log.d("hp File Path", "HPPICC file Path " + filePath);
 		startActivity(ResultItems);

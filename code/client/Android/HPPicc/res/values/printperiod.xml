@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="printPeriod">
+        <item >1 Day</item>
+        <item >10 Days</item>
+        <item >30 Days</item>
+        <item >70 Days</item>
+        <item >100 Days</item>
+    </string-array>
+</resources>

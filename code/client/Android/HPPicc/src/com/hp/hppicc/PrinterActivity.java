@@ -91,6 +91,7 @@ public class PrinterActivity extends Activity{
 		                Intent options = new Intent(getApplicationContext(), OptionsActivity.class);
 		                options.putExtra("printer", printerId);
 		                options.putExtra("filePath", filePath);
+		                options.putExtra("printImage", imageId[+ position]);
 		        		startActivity(options);
 
 		            }

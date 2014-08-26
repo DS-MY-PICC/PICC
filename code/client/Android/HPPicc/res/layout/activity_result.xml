@@ -187,7 +187,7 @@
                 android:textColor="#FFFFFF" />
 
             <TextView
-                android:id="@+id/tvRsImageResolution"
+                android:id="@+id/tvRsPrintMode"
                 android:text="Grayscale"
                 android:layout_marginLeft="10dp"
                 android:textColor="#0096d6" />
@@ -231,7 +231,7 @@
                 android:textColor="#FFFFFF" />
 
             <TextView
-                android:id="@+id/tvRsPrintVolume"
+                android:id="@+id/tvRsPrintPeriod"
                 android:text="10 days"
                 android:layout_marginLeft="10dp"
                 android:textColor="#0096d6" />
@@ -248,7 +248,7 @@
         android:background="#FFFFFF" />
 
     <ImageView
-        android:id="@+id/imageView7"
+        android:id="@+id/ivRsSelectedImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView1"
@@ -259,9 +259,10 @@
     <TableLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/imageView7"
+        android:layout_below="@+id/textView1"
         android:layout_marginLeft="15dp"
-        android:layout_toRightOf="@+id/imageView7" android:id="@+id/tableLayout2">
+        android:layout_toRightOf="@+id/ivRsSelectedImage" 
+        android:id="@+id/tableLayout2">
 
         <TableRow
             android:id="@+id/tableRow6"
@@ -279,7 +280,7 @@
             
             <TextView
                 android:id="@+id/tvRsName"
-                android:text="HP SmartPhoto"
+                android:text=""
                 android:layout_marginLeft="10dp"
                 android:textColor="#0096d6" />
         </TableRow>
@@ -299,13 +300,13 @@
             
             <TextView
                 android:id="@+id/tvRsPrice"
-                android:text="$ 199.00"
+                android:text=""
                 android:layout_marginLeft="10dp"
                 android:textColor="#0096d6" />
         </TableRow>
-
+        
         <TableRow
-            android:id="@+id/tableRow8"
+            android:id="@+id/tableRow10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
             <TextView
@@ -319,17 +320,17 @@
             
             <TextView
                 android:id="@+id/tvRsIcpp"
-                android:text="$ 19.00"
+                android:text=""
                 android:layout_marginLeft="10dp"
                 android:textColor="#0096d6" />
         </TableRow>
 
         <TableRow
-            android:id="@+id/tableRow9"
+            android:id="@+id/tableRow8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
             <TextView
-                android:text="TCO"
+                android:text="TPC"
                 android:textColor="#FFFFFF" />
             
             <TextView
@@ -338,13 +339,36 @@
                 android:textColor="#FFFFFF" />
             
             <TextView
-                android:id="@+id/tvRsTco"
-                android:text="$ 298.00"
-                android:textStyle="bold"
-                android:textSize="20dp"
+                android:id="@+id/tvRsTPC"
+                android:text=""
                 android:layout_marginLeft="10dp"
                 android:textColor="#0096d6" />
         </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:text="TCO"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:text=":"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/tvRsTco"
+                android:layout_marginLeft="10dp"
+                android:text=""
+                android:textColor="#0096d6"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+        </TableRow>
+
     </TableLayout>
 
     <TextView
