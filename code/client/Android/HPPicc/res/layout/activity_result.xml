@@ -2,12 +2,371 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#000000"
     tools:context="${packageName}.${activityClass}" >
 
     <TextView
         android:id="@+id/tvResult"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:fontFamily="HPFutura Book"
+        android:text="Image Print Details:"
+        android:textColor="#FFFFFF"
+        android:textSize="20dp" />
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
+        android:layout_below="@+id/tvResult"
+        android:layout_centerHorizontal="true" >
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="250dp"
+            android:layout_height="190dp"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="30dp"
+            android:background="#FFFFFF" />
+
+        <ImageView
+            android:id="@+id/ivResultImage"
+            android:layout_width="230dp"
+            android:layout_height="150dp"
+            android:layout_centerInParent="true"
+            android:background="#0096d6"
+            android:src="@drawable/focanonmg8220" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_alignBottom="@+id/ivResultImage"
+            android:layout_toRightOf="@+id/tvCyan"
+            android:src="@drawable/magenta" />
+
+        <TextView
+            android:id="@+id/tvMagenta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/ivResultImage"
+            android:layout_toRightOf="@+id/imageView3"
+            android:fontFamily="HPFutura Book"
+            android:text="5%"
+            android:textColor="#00FFFF"
+            android:textSize="15dp"
+            android:textStyle="italic" />
+
+        <TextView
+            android:id="@+id/tvCyan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/ivResultImage"
+            android:layout_toRightOf="@+id/imageView2"
+            android:fontFamily="HPFutura Book"
+            android:text="11%"
+            android:textColor="#FF00FF"
+            android:textSize="15dp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_alignBottom="@+id/ivResultImage"
+            android:layout_alignLeft="@+id/ivResultImage"
+            android:src="@drawable/cyan" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_alignBottom="@+id/ivResultImage"
+            android:layout_toRightOf="@+id/tvMagenta"
+            android:src="@drawable/yellow" />
+
+        <TextView
+            android:id="@+id/tvYellow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/ivResultImage"
+            android:layout_toRightOf="@+id/imageView4"
+            android:fontFamily="HPFutura Book"
+            android:text="20%"
+            android:textColor="#FFFF00"
+            android:textSize="15dp"
+            android:textStyle="italic" />
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_alignBottom="@+id/ivResultImage"
+            android:layout_toRightOf="@+id/tvYellow"
+            android:src="@drawable/black" />
+
+        <TextView
+            android:id="@+id/tvBlack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/ivResultImage"
+            android:layout_toRightOf="@+id/imageView5"
+            android:fontFamily="HPFutura Book"
+            android:text="10%"
+            android:textSize="15dp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+    <TableLayout
+        android:id="@+id/tableLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/relativeLayout1"
+        android:layout_below="@+id/relativeLayout1" >
+
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:layout_marginLeft="15dp"
+                android:text="Page Size"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:text=":"
+                android:layout_marginLeft="10dp"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/tvRsPageSize"
+                android:text="A4"
+                android:layout_marginLeft="10dp"
+                android:textColor="#0096d6" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:layout_marginLeft="15dp"
+                android:text="Image Resolution"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:text=":"
+                android:layout_marginLeft="10dp"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/tvRsImageResolution"
+                android:layout_marginLeft="10dp"
+                android:text="100 DPI"
+                android:textColor="#0096d6" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:layout_marginLeft="15dp"
+                android:text="Print Mode"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:text=":"
+                android:layout_marginLeft="10dp"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/tvRsImageResolution"
+                android:text="Grayscale"
+                android:layout_marginLeft="10dp"
+                android:textColor="#0096d6" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:layout_marginLeft="15dp"
+                android:text="Print Volume"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:text=":"
+                android:layout_marginLeft="10dp"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/tvRsPrintVolume"
+                android:text="100 pcs"
+                android:layout_marginLeft="10dp"
+                android:textColor="#0096d6" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:layout_marginLeft="15dp"
+                android:text="Print Period"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:text=":"
+                android:layout_marginLeft="10dp"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/tvRsPrintVolume"
+                android:text="10 days"
+                android:layout_marginLeft="10dp"
+                android:textColor="#0096d6" />
+        </TableRow>
+    </TableLayout>
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/tableLayout1"
+        android:layout_marginTop="10dp"
+        android:background="#FFFFFF" />
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_below="@+id/textView1"
+        android:layout_marginTop="5dp"
+        android:src="@drawable/oofficejet6600" />
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/imageView7"
+        android:layout_marginLeft="15dp"
+        android:layout_toRightOf="@+id/imageView7" android:id="@+id/tableLayout2">
+
+        <TableRow
+            android:id="@+id/tableRow6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+            
+            <TextView
+                android:text="Name"
+                android:textColor="#FFFFFF" />
+            
+            <TextView
+                android:text=":"
+                android:layout_marginLeft="10dp"
+                android:textColor="#FFFFFF" />
+            
+            <TextView
+                android:id="@+id/tvRsName"
+                android:text="HP SmartPhoto"
+                android:layout_marginLeft="10dp"
+                android:textColor="#0096d6" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+            <TextView
+                android:text="Price"
+                android:textColor="#FFFFFF" />
+            
+            <TextView
+                android:text=":"
+                android:layout_marginLeft="10dp"
+                android:textColor="#FFFFFF" />
+            
+            <TextView
+                android:id="@+id/tvRsPrice"
+                android:text="$ 199.00"
+                android:layout_marginLeft="10dp"
+                android:textColor="#0096d6" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+            <TextView
+                android:text="ICPP"
+                android:textColor="#FFFFFF" />
+            
+            <TextView
+                android:text=":"
+                android:layout_marginLeft="10dp"
+                android:textColor="#FFFFFF" />
+            
+            <TextView
+                android:id="@+id/tvRsIcpp"
+                android:text="$ 19.00"
+                android:layout_marginLeft="10dp"
+                android:textColor="#0096d6" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+            <TextView
+                android:text="TCO"
+                android:textColor="#FFFFFF" />
+            
+            <TextView
+                android:text=":"
+                android:layout_marginLeft="10dp"
+                android:textColor="#FFFFFF" />
+            
+            <TextView
+                android:id="@+id/tvRsTco"
+                android:text="$ 298.00"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:layout_marginLeft="10dp"
+                android:textColor="#0096d6" />
+        </TableRow>
+    </TableLayout>
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tableLayout1"
+        android:layout_below="@+id/imageView6"
+        android:fontFamily="HPFutura Book"
+        android:layout_marginTop="10dp"
+        android:text="Print Cost For:"
+        android:textColor="#FFFFFF" />
+
+    <ImageButton
+        android:id="@+id/imageButton1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="15dp"
+        android:layout_marginRight="15dp"
+        android:background="#000000"
+        android:src="@drawable/compareprinters" />
 
 </RelativeLayout>

@@ -41,6 +41,7 @@ public class OptionsActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		
+		try{
 		httpPG = new HttpPostGet();
 		
 		super.onCreate(savedInstanceState);
@@ -99,6 +100,23 @@ public class OptionsActivity extends Activity {
 			}
 		});
 		
+		final Spinner spPrintVolume = (Spinner)findViewById(R.id.spPrintVolume);
+		spPrintVolume.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view,
+					int position, long id) {
+				// TODO Auto-generated method stub
+				httpPG.setPrintVolume(Integer.parseInt( spPrintVolume.getSelectedItem().toString() ) );
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
 		final Spinner spPrintMode = (Spinner)findViewById(R.id.spPrintMode);
 		spPrintMode.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
@@ -115,6 +133,28 @@ public class OptionsActivity extends Activity {
 				
 			}
 		});
+		
+		final Spinner spPrintPeriod = (Spinner)findViewById(R.id.spPrintPeriod);
+		spPrintPeriod.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view,
+					int position, long id) {
+				// TODO Auto-generated method stub
+				httpPG.setPrintPeriod(spPrintPeriod.getSelectedItem().toString());
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
 	}
 	
 	public void onClickNext(View v)
@@ -130,6 +170,8 @@ public class OptionsActivity extends Activity {
 		ResultItems.putExtra("pageSize", httpPG.getPageSize());
 		ResultItems.putExtra("imageResolution", httpPG.getImageResolution());
 		ResultItems.putExtra("printMode", httpPG.getPrintMode());
+		ResultItems.putExtra("printVolume", httpPG.getPrintVolume());
+		ResultItems.putExtra("printPeriod", httpPG.getPrintPeriod());
 		
 		Log.d("hp File Path", "HPPICC file Path " + filePath);
 		startActivity(ResultItems);

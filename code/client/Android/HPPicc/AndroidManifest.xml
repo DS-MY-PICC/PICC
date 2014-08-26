@@ -20,7 +20,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".WelcomeActivity"
+            android:name="com.hp.hppicc.WelcomeActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
@@ -32,28 +32,32 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".UploadActivity"
+            android:name="com.hp.hppicc.UploadActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".ResultActivity"
+            android:name="com.hp.hppicc.ResultActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".OptionsActivity"
+            android:name="com.hp.hppicc.OptionsActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".PrinterActivity"
+            android:name="com.hp.hppicc.PrinterActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".GetPrintersActivity"
+            android:name="com.hp.hppicc.GetPrintersActivity"
             android:label="@string/title_activity_get_printers" >
+        </activity>
+        <activity
+            android:name="com.hp.hppicc.SpinnerActivity"
+            android:label="@string/title_activity_spinner" >
         </activity>
     </application>
 

@@ -10,8 +10,8 @@ public class HttpPostGet {
 	private String paperType;
 	private String imageResolution;
 	private String printMode;
-	private String printVolume;
-	private String printPeriod;
+	private int printVolume;
+	private int printPeriod;
 	
 	private String httpLink;
 	
@@ -74,21 +74,22 @@ public class HttpPostGet {
 		Log.d("http", "http printType " + this.printMode);
 	}
 
-	public String getPrintVolume() {
+	public int getPrintVolume() {
 		return printVolume;
 	}
 
-	public void setPrintVolume(String printVolume) {
+	public void setPrintVolume(int printVolume) {
 		this.printVolume = printVolume;
 		Log.d("http", "http printVolume " + this.printVolume);
 	}
 
-	public String getPrintPeriod() {
+	public int getPrintPeriod() {
 		return printPeriod;
 	}
 
 	public void setPrintPeriod(String printPeriod) {
-		this.printPeriod = printPeriod;
+		String days = printPeriod.split(" ")[0];
+		this.printPeriod = Integer.parseInt(days);
 		Log.d("http", "http printPeriod " + this.printPeriod);
 	}
 	

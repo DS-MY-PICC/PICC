@@ -103,15 +103,4 @@
             android:src="@drawable/fromgallery"/>
     </RelativeLayout>
 
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/rlPic"
-        android:layout_below="@+id/rlPic"
-        android:layout_marginLeft="24dp"
-        android:layout_marginTop="18dp"
-        android:text="Button" 
-        android:onClick="onClickSpinner"/>
-
 </RelativeLayout>
