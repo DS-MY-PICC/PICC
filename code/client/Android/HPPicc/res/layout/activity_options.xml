@@ -1,226 +1,134 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:android1="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="${packageName}.${activityClass}" 
-    android:background="#000000">
+    android:background="#000000"
+    tools:context="${packageName}.${activityClass}" >
 
-    <RelativeLayout 
+    <RelativeLayout
         android:id="@+id/rlPic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp">
-	    <ImageView
-	        android:id="@+id/ivWhiteBackground"
-	        android:layout_width="150dp"
-	        android:layout_height="150dp"
-	        android:layout_alignParentLeft="true"
-	        android:layout_alignParentTop="true"	        
-	        android:background="#FFFFFF" 
-	        android:layout_centerInParent="true"/>
+        android:layout_margin="15dp" >
 
-	    <ImageView
-	        android:id="@+id/ivPic"
-	        android:layout_width="130dp"
-	        android:layout_height="130dp"
-	        android:layout_centerHorizontal="true"
-	        android:layout_centerVertical="true"
-	        android:src="@drawable/abc_ab_bottom_solid_dark_holo" />
+        <ImageView
+            android:id="@+id/ivWhiteBackground"
+            android:layout_width="170dp"
+            android:layout_height="150dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
+            android:background="#FFFFFF" />
+
+        <ImageView
+            android:id="@+id/ivPic"
+            android:layout_width="150dp"
+            android:layout_height="130dp"
+            android:layout_centerInParent="true"
+            android:background="#0096d6" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/ivPic"
+            android:layout_alignRight="@+id/ivPic"
+            android:layout_marginRight="10dp"
+            android:text="Image Uploaded"
+            android:textSize="10dp"
+            android:textStyle="italic" />
     </RelativeLayout>
 
-    <TableLayout
-        android:layout_width="fill_parent"
+    <TextView
+        android:id="@+id/tvSelectOptions"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/rlPic"
         android:layout_below="@+id/rlPic"
-        android:layout_marginTop="15dp" >
+        android:layout_marginLeft="15dp"
+        android:fontFamily="HPFutura Book"
+        android:text="Please Select Print Options:"
+        android:textColor="#FFFFFF"
+        android:textSize="20dp"
+        android:textStyle="bold" />
 
-        <TableRow
-            android:id="@+id/trPageSize"
-            android:layout_width="fill_parent"
-            android:layout_height="20dp" >
-            <TextView 
-                android:id="@+id/tvPageSize"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textColor="#FFFFFF"
-                android:textSize="15dp"
-                android:text="Page Size"/>
-            
-            <TextView 
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textColor="#FFFFFF"
-                android:textSize="15dp"
-                android:text=":"/>
-            
-            <Spinner 
-                android:id="@+id/spPageSize"
-                android:layout_width="fill_parent"
-                android:layout_height="match_parent"
-                />
-        </TableRow>
+    <ImageButton
+        android:id="@+id/imageButton1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="30dp"
+        android:layout_marginRight="15dp"
+        android:background="#000000"
+        android:onClick="onClickNext"
+        android:src="@drawable/nextbutton" />
 
-        <TableRow
-            android:id="@+id/trPaperType"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-            
-            <TextView 
-                android:id="@+id/tvPaperType"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textColor="#FFFFFF"
-                android:textSize="15dp"
-                android:text="Page Type"/>
-            
-            <TextView 
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textColor="#FFFFFF"
-                android:textSize="15dp"
-                android:text=":"/>
-            
-            <Spinner 
-                android:id="@+id/spPaperType"
-                android:layout_width="fill_parent"
-                android:layout_height="match_parent"
-                />
-            
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/trImageResolution"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-            
-            <TextView 
-                android:id="@+id/tvImageResolution"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textColor="#FFFFFF"
-                android:textSize="15dp"
-                android:text="Image Resolution"/>
-            
-            <TextView 
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textColor="#FFFFFF"
-                android:textSize="15dp"
-                android:text=":"/>
-            
-            <Spinner 
-                android:id="@+id/spImageResolution"
-                android:layout_width="fill_parent"
-                android:layout_height="match_parent"
-                />
-            
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/trPrintMode"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-            
-            <TextView 
-                android:id="@+id/tvPrintMode"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textColor="#FFFFFF"
-                android:textSize="15dp"
-                android:text="Print Mode"/>
-            
-            <TextView 
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textColor="#FFFFFF"
-                android:textSize="15dp"
-                android:text=":"/>
-            
-            <Spinner 
-                android:id="@+id/spPrintMode"
-                android:layout_width="fill_parent"
-                android:layout_height="match_parent"
-                />
-            
-        </TableRow>
-        
-        <TableRow
-            android:id="@+id/trPrintVolume"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-            
-            <TextView 
-                android:id="@+id/tvPrintVolume"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textColor="#FFFFFF"
-                android:textSize="15dp"
-                android:text="Print Volume"/>
-            
-            <TextView 
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textColor="#FFFFFF"
-                android:textSize="15dp"
-                android:text=":"/>
-            
-            <Spinner 
-                android:id="@+id/spPrintVolume"
-                android:layout_width="fill_parent"
-                android:layout_height="match_parent"
-                />
-            
-        </TableRow>
-        
-        <TableRow
-            android:id="@+id/trPrintPeriod"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-            
-            <TextView 
-                android:id="@+id/tvPrintPeriod"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textColor="#FFFFFF"
-                android:textSize="15dp"
-                android:text="Print Period"/>
-            
-            <TextView 
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textColor="#FFFFFF"
-                android:textSize="15dp"
-                android:text=":"/>
-            
-            <Spinner 
-                android:id="@+id/spPrintPeriod"
-                android:layout_width="fill_parent"
-                android:layout_height="match_parent"
-                />
-            
-        </TableRow>
-        
-    </TableLayout>
+    <Spinner
+        android:id="@+id/spPageSize"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/tvPageSize"
+        android:layout_marginRight="15dp"
+        android:layout_toRightOf="@+id/tvPageSize"
+        android:background="@android:drawable/btn_dropdown"
+        android:entries="@array/pageSize"
+        android:prompt="@string/pageSize" />
 
     <TextView
-        android:id="@+id/tvPrinter"
+        android:id="@+id/tvPageSize"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/rlPic"
-        android:layout_marginRight="19dp"
-        android:layout_marginTop="22dp"
-        android:text="printer selected" 
-        android:textColor="#FFFFFF"/>
+        android:layout_alignLeft="@+id/tvSelectOptions"
+        android:layout_below="@+id/tvSelectOptions"
+        android:layout_marginTop="20dp"
+        android:fontFamily="HPFutura Book"
+        android:text="Page Size:"
+        android:textColor="#FFFFFF"
+        android:textSize="20dp" />
 
-    <Button
-        android:id="@+id/button1"
+    <TextView
+        android:id="@+id/tvImageResolution"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/tvPrinter"
-        android:layout_below="@+id/tvPrinter"
-        android:onClick="onClickSubmit"
-        android:text="submit" />
+        android:layout_alignLeft="@+id/tvSelectOptions"
+        android:layout_below="@+id/tvPageSize"
+        android:layout_marginTop="20dp"
+        android:fontFamily="HPFutura Book"
+        android:text="Image Resolution:"
+        android:textColor="#FFFFFF"
+        android:textSize="20dp" />
 
-</RelativeLayout>
+    <Spinner
+        android:id="@+id/spImageResolution"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/tvImageResolution"
+        android:layout_marginRight="15dp"
+        android:layout_toRightOf="@+id/tvImageResolution"
+        android:background="@android:drawable/btn_dropdown"
+        android:entries="@array/imageResolution" />
+
+    <TextView
+        android:id="@+id/tvPrintMode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tvImageResolution"
+        android:layout_below="@+id/tvImageResolution"
+        android:layout_marginTop="20dp"
+        android:fontFamily="HPFutura Book"
+        android:text="Print Mode:"
+        android:textColor="#FFFFFF"
+        android:textSize="20dp" />
+    
+    <Spinner
+        android:id="@+id/spPrintMode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/tvPrintMode"
+        android:layout_marginRight="15dp"
+        android:layout_toRightOf="@+id/tvPrintMode"
+        android:background="@android:drawable/btn_dropdown"
+        android:entries="@array/printMode" />
+
+</RelativeLayout>

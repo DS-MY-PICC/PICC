@@ -308,8 +308,9 @@ public class UploadActivity extends Activity {
 	public void continuePrinter(String filePath)
 	{
 		Intent printerSelection = new Intent(getApplicationContext(), GetPrintersActivity.class);
+//		Intent printerSelection = new Intent(getApplicationContext(), PrinterActivity.class);
 		printerSelection.putExtra("filePath", filePath);
-		Log.d("hp File Path", "HPPICC file Path " + filePath);
+		Log.d("hp File Path", "Upload filePath " + filePath);
 		startActivity(printerSelection);
 	}
 	
@@ -352,4 +353,10 @@ public class UploadActivity extends Activity {
 		ad.show();
 
     }
+	
+	public void onClickSpinner(View v)
+	{
+		Intent i = new Intent(this, OptionsActivity.class);
+		startActivity(i);
+	}
 }

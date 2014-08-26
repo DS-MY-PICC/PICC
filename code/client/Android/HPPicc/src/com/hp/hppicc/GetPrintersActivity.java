@@ -27,6 +27,7 @@ public class GetPrintersActivity extends Activity {
 
 	private ProgressDialog progressDialog;
 	private HttpAsyncTask mTask = null;
+	private String filePath;
 
 	String[] printer = { "HP Officejet 6600 from Local", "HP Photosmart 7520",
 			"Epson WorkForce WF-3520", "Canon Pixma MG8220", "HP DesignJet 30" };
@@ -35,11 +36,16 @@ public class GetPrintersActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_get_printers);
+		filePath = getIntent().getStringExtra("filePath");
+		Log.d("filePath", "get Printers filepath: " + filePath);
 
 		if (!isConnected()) {
 			Toast.makeText(this, "Not Connected to Internet", Toast.LENGTH_LONG).show();
 			Intent options = new Intent(getApplicationContext(),PrinterActivity.class);
+			
 			options.putExtra("printer", printer);
+			options.putExtra("filePath", filePath);
+			
 			startActivity(options);
 			finish();
 		} else {
@@ -136,6 +142,7 @@ public class GetPrintersActivity extends Activity {
 					setContentView(R.layout.activity_get_printers);
 					Intent options = new Intent(getApplicationContext(),PrinterActivity.class);
 					options.putExtra("printer", printer);
+					options.putExtra("filePath", filePath);
 					startActivity(options);
 					finish();
 

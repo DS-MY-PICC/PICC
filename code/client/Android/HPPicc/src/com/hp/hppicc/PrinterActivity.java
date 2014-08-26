@@ -80,10 +80,16 @@ public class PrinterActivity extends Activity{
 		            @Override
 		            public void onItemClick(AdapterView<?> parent, View view,
 		                                    int position, long id) {
-		            	Log.d("printer", "printer Choose" + printer [+ position]);
+		            	int pos = position + 1;
+		            	
+		            	StringBuilder sb = new StringBuilder();
+		            	sb.append(pos);
+		            	String printerId = sb.toString();
+		            	
+		            	Log.d("printer", "printer Choose" + printer [+ position] + " position " + position + " printerId " + printerId);
 //		                Toast.makeText(PrinterActivity.this, "You Clicked at " +printer[+ position] + " go to option", Toast.LENGTH_SHORT).show();
 		                Intent options = new Intent(getApplicationContext(), OptionsActivity.class);
-		                options.putExtra("printer", printer[+position]);
+		                options.putExtra("printer", printerId);
 		                options.putExtra("filePath", filePath);
 		        		startActivity(options);
 

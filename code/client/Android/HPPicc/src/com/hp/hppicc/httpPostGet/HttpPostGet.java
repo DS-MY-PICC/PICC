@@ -1,5 +1,7 @@
 package com.hp.hppicc.httpPostGet;
 
+import java.util.List;
+
 import android.util.Log;
 
 public class HttpPostGet {
@@ -35,7 +37,12 @@ public class HttpPostGet {
 	}
 
 	public void setPageSize(String pageSize) {
-		this.pageSize = pageSize;
+		if(pageSize.toLowerCase().equals("actual size"))
+			this.pageSize = "-1";
+		else
+		{
+			this.pageSize = pageSize.substring(1);
+		}
 		Log.d("http", "http pageSize " + this.pageSize);
 	}
 
@@ -53,16 +60,17 @@ public class HttpPostGet {
 	}
 
 	public void setImageResolution(String imageResolution) {
-		this.imageResolution = imageResolution;
+		String[] ir = imageResolution.split(" ");
+		this.imageResolution = ir[0];
 		Log.d("http", "http imageResolution " + this.imageResolution);
 	}
 
-	public String getPrintType() {
+	public String getPrintMode() {
 		return printMode;
 	}
 
 	public void setPrintMode(String printMode) {
-		this.printMode = printMode;
+		this.printMode = printMode.toLowerCase();
 		Log.d("http", "http printType " + this.printMode);
 	}
 

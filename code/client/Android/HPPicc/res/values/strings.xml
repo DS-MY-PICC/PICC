@@ -14,5 +14,7 @@
     <string name="website">http://15.125.96.127:8080/</string>
     <string name="title_activity_printer">PrinterActivity</string>
     <string name="title_activity_get_printers">GetPrintersActivity</string>
+    <string name="title_activity_spinner">SpinnerActivity</string>
+    <string name="pageSize">Page Size</string>
 
 </resources>
