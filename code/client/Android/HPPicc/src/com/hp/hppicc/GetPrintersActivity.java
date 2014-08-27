@@ -131,6 +131,7 @@ public class GetPrintersActivity extends Activity {
 		protected void onPostExecute(String result) {
 			if (isConnected()) {
 				try {
+					Log.d("getPrinters", "printersValue Json: " + result);
 					JSONArray printers = new JSONArray(result);
 					for (int i = 0; i < printers.length(); i++) {
 						// Log.d("Printer Name",

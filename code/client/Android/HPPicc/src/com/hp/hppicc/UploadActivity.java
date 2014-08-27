@@ -6,7 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 import com.hp.hppicc.connectionChecking.ConnectionChecking;
-import com.hp.hppicc.dataDefinition.DataDefinition;
+import com.hp.hppicc.dataDefinition.ResultData;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -40,7 +40,7 @@ import android.widget.Toast;
 
 public class UploadActivity extends Activity {
 	
-	DataDefinition dd = new DataDefinition();
+	ResultData dd = new ResultData();
 	
 	private static final int CAMERA_CAPTURE_IMAGE_REQUEST_CODE = 100;
 	private static final int SELECT_PICTURE = 101;

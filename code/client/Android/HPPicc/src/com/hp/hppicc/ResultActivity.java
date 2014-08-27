@@ -17,7 +17,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import com.hp.hppicc.dataDefinition.DataDefinition;
+import com.hp.hppicc.dataDefinition.ResultData;
 import com.hp.picc.utils.JsonHelper;
 
 import android.app.ActionBar;
@@ -71,7 +71,7 @@ public class ResultActivity extends Activity {
 	
 	ImageView ivRsSelectedImage;
 	
-	DataDefinition resultDd;
+	ResultData resultDd;
 	
 	private ProgressDialog dialog;
 
@@ -321,7 +321,7 @@ public class ResultActivity extends Activity {
                 if (sResponse != null) {
                 	
                 	JSONArray json = new JSONArray( sResponse ); 
-                	resultDd = new DataDefinition( json.getJSONObject(0) );
+                	resultDd = new ResultData( json.getJSONObject(0) );
                 		
                 	gTcpp = resultDd.getTcpp();
                 	tvRsIcpp.setText("$ " + String.valueOf(gTcpp));
