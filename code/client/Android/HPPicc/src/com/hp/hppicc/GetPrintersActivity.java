@@ -35,6 +35,7 @@ public class GetPrintersActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		overridePendingTransition(R.anim.lefttorightvisible, R.anim.lefttorightinvisible);
 		setContentView(R.layout.activity_get_printers);
 		filePath = getIntent().getStringExtra("filePath");
 		Log.d("filePath", "get Printers filepath: " + filePath);

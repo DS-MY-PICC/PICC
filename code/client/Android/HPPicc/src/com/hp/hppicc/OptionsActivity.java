@@ -46,6 +46,7 @@ public class OptionsActivity extends Activity {
 		httpPG = new HttpPostGet();
 		
 		super.onCreate(savedInstanceState);
+		overridePendingTransition(R.anim.lefttorightvisible, R.anim.lefttorightinvisible);
 		setContentView(R.layout.activity_options);
 		
 		ActionBar ab = getActionBar();
@@ -179,5 +180,6 @@ public class OptionsActivity extends Activity {
 		
 		Log.d("hp File Path", "HPPICC file Path " + filePath);
 		startActivity(ResultItems);
+		overridePendingTransition(R.anim.lefttorightvisible, R.anim.lefttorightinvisible);
 	}
 }

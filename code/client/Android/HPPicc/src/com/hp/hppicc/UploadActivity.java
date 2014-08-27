@@ -312,6 +312,7 @@ public class UploadActivity extends Activity {
 		printerSelection.putExtra("filePath", filePath);
 		Log.d("hp File Path", "Upload filePath " + filePath);
 		startActivity(printerSelection);
+		overridePendingTransition(R.anim.lefttorightvisible, R.anim.lefttorightinvisible);
 	}
 	
 	private void showToast(boolean status)

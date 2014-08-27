@@ -25,8 +25,8 @@
 
         <ImageView
             android:id="@+id/imageView1"
-            android:layout_width="250dp"
-            android:layout_height="190dp"
+            android:layout_width="240dp"
+            android:layout_height="180dp"
             android:layout_centerInParent="true"
             android:layout_marginTop="30dp"
             android:background="#FFFFFF" />
@@ -34,7 +34,7 @@
         <ImageView
             android:id="@+id/ivResultImage"
             android:layout_width="230dp"
-            android:layout_height="150dp"
+            android:layout_height="155dp"
             android:layout_centerInParent="true"
             android:background="#0096d6"
             android:src="@drawable/focanonmg8220" />
@@ -192,9 +192,10 @@
                 android:layout_marginLeft="10dp"
                 android:textColor="#0096d6" />
         </TableRow>
-
+        
         <TableRow
             android:id="@+id/tableRow4"
+            android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
 
@@ -213,6 +214,33 @@
                 android:text="100 pcs"
                 android:layout_marginLeft="10dp"
                 android:textColor="#0096d6" />
+
+            <ImageButton
+                android:id="@+id/ivVolome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="0dp"
+                android:src="@drawable/downarrow"
+                android:background="#000000"
+                android:onClick="calculatePrintCost" />
+
+        </TableRow>
+        
+        <TableRow 
+            android:id="@+id/trVolumeSeekBar"
+            android:layout_height="20dp"
+            android:layout_width="wrap_content"
+            android:visibility="gone"
+            >
+
+            <SeekBar
+                android:id="@+id/sbVolume"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:progress="1"
+            	android:max="100"
+                android:layout_span="4" />
+
         </TableRow>
 
         <TableRow
@@ -235,6 +263,30 @@
                 android:text="10 days"
                 android:layout_marginLeft="10dp"
                 android:textColor="#0096d6" />
+            <ImageButton
+                android:id="@+id/ivPeriod"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="0dp"
+                android:src="@drawable/downarrow"
+                android:background="#000000"
+                android:onClick="calculatePrintCost" />
+        </TableRow>
+        <TableRow 
+            android:id="@+id/trPeriodSeekBar"
+            android:layout_height="20dp"
+            android:layout_width="wrap_content"
+            android:visibility="gone"
+            >
+
+            <SeekBar
+                android:id="@+id/sbPeriod"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:progress="1"
+            	android:max="100"
+                android:layout_span="4" />
+
         </TableRow>
     </TableLayout>
 
@@ -255,121 +307,121 @@
         android:layout_below="@+id/textView1"
         android:layout_marginTop="5dp"
         android:src="@drawable/oofficejet6600" />
-
-    <TableLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView1"
-        android:layout_marginLeft="15dp"
-        android:layout_toRightOf="@+id/ivRsSelectedImage" 
-        android:id="@+id/tableLayout2">
-
-        <TableRow
-            android:id="@+id/tableRow6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-            
-            <TextView
-                android:text="Name"
-                android:textColor="#FFFFFF" />
-            
-            <TextView
-                android:text=":"
-                android:layout_marginLeft="10dp"
-                android:textColor="#FFFFFF" />
-            
-            <TextView
-                android:id="@+id/tvRsName"
-                android:text=""
-                android:layout_marginLeft="10dp"
-                android:textColor="#0096d6" />
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/tableRow7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-            <TextView
-                android:text="Price"
-                android:textColor="#FFFFFF" />
-            
-            <TextView
-                android:text=":"
-                android:layout_marginLeft="10dp"
-                android:textColor="#FFFFFF" />
-            
-            <TextView
-                android:id="@+id/tvRsPrice"
-                android:text=""
-                android:layout_marginLeft="10dp"
-                android:textColor="#0096d6" />
-        </TableRow>
-        
-        <TableRow
-            android:id="@+id/tableRow10"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-            <TextView
-                android:text="ICPP"
-                android:textColor="#FFFFFF" />
-            
-            <TextView
-                android:text=":"
-                android:layout_marginLeft="10dp"
-                android:textColor="#FFFFFF" />
-            
-            <TextView
-                android:id="@+id/tvRsIcpp"
-                android:text=""
-                android:layout_marginLeft="10dp"
-                android:textColor="#0096d6" />
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/tableRow8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-            <TextView
-                android:text="TPC"
-                android:textColor="#FFFFFF" />
-            
-            <TextView
-                android:text=":"
-                android:layout_marginLeft="10dp"
-                android:textColor="#FFFFFF" />
-            
-            <TextView
-                android:id="@+id/tvRsTPC"
-                android:text=""
-                android:layout_marginLeft="10dp"
-                android:textColor="#0096d6" />
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/tableRow9"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-
-            <TextView
-                android:text="TCO"
-                android:textColor="#FFFFFF" />
-
-            <TextView
-                android:layout_marginLeft="10dp"
-                android:text=":"
-                android:textColor="#FFFFFF" />
-
-            <TextView
-                android:id="@+id/tvRsTco"
-                android:layout_marginLeft="10dp"
-                android:text=""
-                android:textColor="#0096d6"
-                android:textSize="20dp"
-                android:textStyle="bold" />
-
-        </TableRow>
-
-    </TableLayout>
+    
+	    <TableLayout
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="15dp"
+	        android:layout_below="@+id/textView1"
+           android:layout_toRightOf="@+id/ivRsSelectedImage"
+	        android:id="@+id/tableLayout2">
+	
+	        <TableRow
+	            android:id="@+id/tableRow6"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content" >
+	            
+	            <TextView
+	                android:text="Name"
+	                android:textColor="#FFFFFF" />
+	            
+	            <TextView
+	                android:text=":"
+	                android:layout_marginLeft="10dp"
+	                android:textColor="#FFFFFF" />
+	            
+	            <TextView
+	                android:id="@+id/tvRsName"
+	                android:text=""
+	                android:layout_marginLeft="10dp"
+	                android:textColor="#0096d6" />
+	        </TableRow>
+	
+	        <TableRow
+	            android:id="@+id/tableRow7"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content" >
+	            <TextView
+	                android:text="Price"
+	                android:textColor="#FFFFFF" />
+	            
+	            <TextView
+	                android:text=":"
+	                android:layout_marginLeft="10dp"
+	                android:textColor="#FFFFFF" />
+	            
+	            <TextView
+	                android:id="@+id/tvRsPrice"
+	                android:text=""
+	                android:layout_marginLeft="10dp"
+	                android:textColor="#0096d6" />
+	        </TableRow>
+	        
+	        <TableRow
+	            android:id="@+id/tableRow10"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content" >
+	            <TextView
+	                android:text="ICPP"
+	                android:textColor="#FFFFFF" />
+	            
+	            <TextView
+	                android:text=":"
+	                android:layout_marginLeft="10dp"
+	                android:textColor="#FFFFFF" />
+	            
+	            <TextView
+	                android:id="@+id/tvRsIcpp"
+	                android:text=""
+	                android:layout_marginLeft="10dp"
+	                android:textColor="#0096d6" />
+	        </TableRow>
+	
+	        <TableRow
+	            android:id="@+id/tableRow8"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content" >
+	            <TextView
+	                android:text="TPC"
+	                android:textColor="#FFFFFF" />
+	            
+	            <TextView
+	                android:text=":"
+	                android:layout_marginLeft="10dp"
+	                android:textColor="#FFFFFF" />
+	            
+	            <TextView
+	                android:id="@+id/tvRsTPC"
+	                android:text=""
+	                android:layout_marginLeft="10dp"
+	                android:textColor="#0096d6" />
+	        </TableRow>
+	
+	        <TableRow
+	            android:id="@+id/tableRow9"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content" >
+	
+	            <TextView
+	                android:text="TCO"
+	                android:textColor="#FFFFFF" />
+	
+	            <TextView
+	                android:layout_marginLeft="10dp"
+	                android:text=":"
+	                android:textColor="#FFFFFF" />
+	
+	            <TextView
+	                android:id="@+id/tvRsTco"
+	                android:layout_marginLeft="10dp"
+	                android:text=""
+	                android:textColor="#0096d6"
+	                android:textSize="20dp"
+	                android:textStyle="bold" />
+	
+	        </TableRow>
+	
+	    </TableLayout>
 
     <TextView
         android:id="@+id/textView1"
@@ -388,9 +440,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="15dp"
+        android:layout_marginBottom="10dp"
         android:layout_marginRight="15dp"
         android:background="#000000"
+        android:onClick="onClickComparePrinters"
         android:src="@drawable/compareprinters" />
 
 </RelativeLayout>

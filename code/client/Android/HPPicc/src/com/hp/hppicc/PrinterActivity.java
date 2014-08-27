@@ -93,7 +93,7 @@ public class PrinterActivity extends Activity{
 		                options.putExtra("filePath", filePath);
 		                options.putExtra("printImage", imageId[+ position]);
 		        		startActivity(options);
-
+		        		overridePendingTransition(R.anim.lefttorightvisible, R.anim.lefttorightinvisible);
 		            }
 		        });
 	}		

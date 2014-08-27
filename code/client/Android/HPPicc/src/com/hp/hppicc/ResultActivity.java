@@ -30,7 +30,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.SeekBar;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,6 +48,10 @@ public class ResultActivity extends Activity {
 	int printPeriod;
 	int printerId;
 	
+	double gTcpp;
+	double gTpc;
+	double gPrinterPrice;
+	
 	TextView tvCyan;
 	TextView tvMagenta;
 	TextView tvYellow;
@@ -55,6 +62,10 @@ public class ResultActivity extends Activity {
 	TextView tvRsName;
 	TextView tvRsPrice;
 	
+	TableRow trVolumeSeekBar;
+	TableRow trPeriodSeekBar;
+	SeekBar sbVolume;
+	
 	ImageView ivRsSelectedImage;
 	
 	private ProgressDialog dialog;
@@ -62,6 +73,7 @@ public class ResultActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		overridePendingTransition(R.anim.lefttorightvisible, R.anim.lefttorightinvisible);
 		setContentView(R.layout.activity_result);
 		
 		tvMagenta = (TextView)findViewById(R.id.tvMagenta);
@@ -73,6 +85,9 @@ public class ResultActivity extends Activity {
 		tvRsName = (TextView)findViewById(R.id.tvRsName);
 		tvRsIcpp = (TextView)findViewById(R.id.tvRsIcpp);
 		tvRsPrice = (TextView)findViewById(R.id.tvRsPrice);
+		
+		trVolumeSeekBar = (TableRow)findViewById(R.id.trVolumeSeekBar);
+		trPeriodSeekBar = (TableRow)findViewById(R.id.trPeriodSeekBar);
 		
 		ivRsSelectedImage = (ImageView)findViewById(R.id.ivRsSelectedImage);
 		
@@ -101,13 +116,13 @@ public class ResultActivity extends Activity {
 		TextView tvRsPrintMode = (TextView)findViewById(R.id.tvRsPrintMode);
 		tvRsPrintMode.setText(printMode);
 		
-		TextView tvRsPrintVolume = (TextView)findViewById(R.id.tvRsPrintVolume);
+		final TextView tvRsPrintVolume = (TextView)findViewById(R.id.tvRsPrintVolume);
 		if(printVolume == 1)
 			tvRsPrintVolume.setText(String.valueOf( printVolume ) + " pc");
 		else
 			tvRsPrintVolume.setText(String.valueOf( printVolume ) + " pcs");
 		
-		TextView tvRsPrintPeriod = (TextView)findViewById(R.id.tvRsPrintPeriod);
+		final TextView tvRsPrintPeriod = (TextView)findViewById(R.id.tvRsPrintPeriod);
 		if(printPeriod == 1)
 			tvRsPrintPeriod.setText(String.valueOf(printPeriod) + " day");
 		else
@@ -126,9 +141,116 @@ public class ResultActivity extends Activity {
 	        ivResultImage.setImageBitmap(bitmap);
 		}
 		
+		sbVolume = (SeekBar)findViewById(R.id.sbVolume);
+		sbVolume.setProgress(printVolume);
+		sbVolume.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+			
+			@Override
+			public void onStopTrackingTouch(SeekBar seekBar) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void onStartTrackingTouch(SeekBar seekBar) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void onProgressChanged(SeekBar seekBar, int progress,
+					boolean fromUser) {				
+				// TODO Auto-generated method stub
+				printVolume = progress;
+				if(printVolume >= 2)
+					tvRsPrintVolume.setText(String.valueOf(printVolume) + " pcs");
+				else
+					tvRsPrintVolume.setText(String.valueOf(printVolume) + " pc");
+				calculateCost();
+			}
+		});
+		
+		SeekBar sbPeriod = (SeekBar)findViewById(R.id.sbPeriod);
+		sbPeriod.setProgress(printPeriod);
+		sbPeriod.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+			
+			@Override
+			public void onStopTrackingTouch(SeekBar seekBar) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void onStartTrackingTouch(SeekBar seekBar) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void onProgressChanged(SeekBar seekBar, int progress,
+					boolean fromUser) {
+				// TODO Auto-generated method stub
+				printPeriod = progress;
+				if(printPeriod >= 2)
+					tvRsPrintPeriod.setText(String.valueOf(printPeriod) + " days");
+				else
+					tvRsPrintPeriod.setText(String.valueOf(printPeriod) + " day");
+				calculateCost();
+			}
+		});
+		
 		dialog = ProgressDialog.show(ResultActivity.this, "Processing Image Print Cost...",
                 "Please wait...", true);
         new ImageUploadTask().execute();
+	}
+	
+	private void calculateCost()
+	{
+		double totalCost = 0;
+		double totalCostnPrinter = 0;
+		totalCost = gTcpp * (double)printPeriod * (double)printVolume;
+		Log.d("calculate", "total Cost " + totalCost);
+		Log.d("printPeriod", "printperiod " + printPeriod);
+		Log.d("calculate", "Print Volume " + printVolume);
+		
+		totalCostnPrinter = totalCost + gPrinterPrice;
+		
+		BigDecimal totalCostD = new BigDecimal(totalCost).setScale(2, BigDecimal.ROUND_HALF_UP);
+		BigDecimal totalCostPrinterD = new BigDecimal(totalCostnPrinter).setScale(2, BigDecimal.ROUND_HALF_UP);
+		tvRsTPC.setText("$ " + totalCostD.toString());
+		tvRsTco.setText("$ " + totalCostPrinterD.toString());
+	}
+	
+	public void calculatePrintCost(View v) {
+		if(v.getId() == R.id.ivVolome)
+		{
+			if(trVolumeSeekBar.getVisibility() == View.VISIBLE)
+			{
+				trVolumeSeekBar.setVisibility(View.GONE);
+			}
+			else
+			{
+				trPeriodSeekBar.setVisibility(View.GONE);
+				trVolumeSeekBar.setVisibility(View.VISIBLE);
+			}
+		}
+		else if(v.getId() == R.id.ivPeriod)
+		{
+			if(trPeriodSeekBar.getVisibility() == View.VISIBLE)
+			{
+				trPeriodSeekBar.setVisibility(View.GONE);
+			}
+			else
+			{
+				trVolumeSeekBar.setVisibility(View.GONE);
+				trPeriodSeekBar.setVisibility(View.VISIBLE);
+			}				
+		}
+	}
+	
+	public void onClickComparePrinters(View v)
+	{
+		Toast.makeText(getApplicationContext(), "Will compare prices with few printers in coming release", Toast.LENGTH_LONG).show();;
 	}
 	
 	class ImageUploadTask extends AsyncTask <Void, Void, String>{
@@ -194,6 +316,7 @@ public class ResultActivity extends Activity {
                 		
                     	Map<String, Object> resultMap = JsonHelper.getMap(json, "result");                    	
                     	double tcpp = (Double) resultMap.get("tcpp");
+                    	gTcpp = tcpp;
                     	tvRsIcpp.setText("$ " + String.valueOf(tcpp));
                     	
                     	double tpc = tcpp * (double)printVolume * (double)printPeriod;
@@ -219,6 +342,7 @@ public class ResultActivity extends Activity {
     					JSONObject printerOB = json.getJSONObject("printer");
     					
     					double pricePrinter = printerOB.getDouble("price");
+    					gPrinterPrice = pricePrinter;
     					tvRsPrice.setText("$ " + String.valueOf( pricePrinter ));
     					
     					double tco = pricePrinter + tpc;
@@ -241,8 +365,8 @@ public class ResultActivity extends Activity {
 //    					Log.d("SelectImageActivity", "paper: " + paper + "; dpi: " + dpi);
     					
     					
-                        Toast.makeText(getApplicationContext(), "Total Cost Per Print:" + tcpp,
-                                Toast.LENGTH_LONG).show();
+//                        Toast.makeText(getApplicationContext(), "Total Cost Per Print:" + tcpp,
+//                                Toast.LENGTH_LONG).show();
                 		
                 	} else {
                 		
