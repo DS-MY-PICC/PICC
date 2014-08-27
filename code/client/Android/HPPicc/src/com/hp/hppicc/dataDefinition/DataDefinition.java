@@ -14,7 +14,6 @@ public class DataDefinition implements Parcelable {
 	private String image;
 	private double price;
 	private String url;
-	private String ppi;
 	private String functions;
 	private String iccFile;
 	private double printSpeedBlack;
@@ -31,6 +30,17 @@ public class DataDefinition implements Parcelable {
 	private double inkBlackPrice;
 	private int inkBlackYield;
 	
+	private double cyanV;
+	private double magentaV;
+	private double yellowV;
+	private double blackV;
+	private double tcpp;
+	
+	private String paper;
+	private String dpi;
+	private String printer;
+	private String mode;
+
 	public DataDefinition ()
 	{
 		
@@ -40,29 +50,42 @@ public class DataDefinition implements Parcelable {
 	{
 		try
 		{
-			this.id = json.getInt("id");
-			this.brand = json.getString("brand");
-			this.type = json.getString("type");
-			this.title = json.getString("title");
-			this.image = json.getString("image");
-			this.price = json.getDouble("price");
-			this.url = json.getString("url");
-			this.ppi = json.getString("ppi");
-			this.functions = json.getString("functions");
-			this.iccFile = json.getString("iccFile");
-			this.printSpeedBlack = json.getDouble("printSpeedBlack");
-			this.printSpeedColor = json.getDouble("printSpeedColor");
-			this.maxInputCapacity = json.getInt("maxInputCapacity");
-			this.maxMonthlyDutyCycle = json.getInt("maxMonthlyDutyCycle");
-			this.autoDuplex = json.getString("autoDuplex");
-			this.inkCyanPrice = json.getDouble("inkCyanPrice");
-			this.inkCyanYield = json.getInt("inkCyanYield");
-			this.inkMagentaPrice = json.getDouble("inkMagentaPrice");
-			this.inkMagentaYield = json.getInt("inkMagentaYield");
-			this.inkYellowPrice = json.getDouble("inkYellowPrice");
-			this.inkYellowYield = json.getInt("inkYellowYield");
-			this.inkBlackPrice = json.getDouble("inkBlackPrice");
-			this.inkBlackYield = json.getInt("inkBlackYield");
+			JSONObject cmykResult = json.getJSONObject("result");
+			this.cyanV = cmykResult.getDouble("cyan");
+			this.magentaV = cmykResult.getDouble("magenta");
+			this.yellowV = cmykResult.getDouble("yellow");
+			this.blackV = cmykResult.getDouble("black");
+			this.tcpp = cmykResult.getDouble("tcpp");
+			
+			JSONObject printerResult = json.getJSONObject("printer");
+			this.id = printerResult.getInt("id");
+			this.brand = printerResult.getString("brand");
+			this.type = printerResult.getString("type");
+			this.title = printerResult.getString("title");
+			this.image = printerResult.getString("image");
+			this.price = printerResult.getDouble("price");
+			this.url = printerResult.getString("url");
+			this.functions = printerResult.getString("functions");
+			this.iccFile = printerResult.getString("icc_file");
+			this.printSpeedBlack = printerResult.getDouble("print_speed_black");
+			this.printSpeedColor = printerResult.getDouble("print_speed_color");
+			this.maxInputCapacity = printerResult.getInt("max_input_capacity");
+			this.maxMonthlyDutyCycle = printerResult.getInt("max_monthly_duty_cycle");
+			this.autoDuplex = printerResult.getString("auto_duplex");
+			this.inkCyanPrice = printerResult.getDouble("ink_cyan_price");
+			this.inkCyanYield = printerResult.getInt("ink_cyan_yield");
+			this.inkMagentaPrice = printerResult.getDouble("ink_magenta_price");
+			this.inkMagentaYield = printerResult.getInt("ink_magenta_yield");
+			this.inkYellowPrice = printerResult.getDouble("ink_yellow_price");
+			this.inkYellowYield = printerResult.getInt("ink_yellow_yield");
+			this.inkBlackPrice = printerResult.getDouble("ink_black_price");
+			this.inkBlackYield = printerResult.getInt("ink_black_yield");
+			
+			JSONObject options = json.getJSONObject("options");
+			this.paper = options.getString("paper");
+			this.dpi = options.getString("dpi");
+			this.printer = options.getString("printer");
+			this.mode = options.getString("mode");
 		}
 		catch(Exception ex)
 		{
@@ -70,9 +93,7 @@ public class DataDefinition implements Parcelable {
 		}
 
 	}
-	
-	
-	
+
 	public int getId() {
 		return id;
 	}
@@ -99,10 +120,6 @@ public class DataDefinition implements Parcelable {
 
 	public String getUrl() {
 		return url;
-	}
-
-	public String getPpi() {
-		return ppi;
 	}
 
 	public String getFunctions() {
@@ -165,11 +182,41 @@ public class DataDefinition implements Parcelable {
 		return inkBlackYield;
 	}
 
-	public Parcelable.Creator<DataDefinition> getCREATOR() {
-		return CREATOR;
+	public double getCyanV() {
+		return cyanV;
 	}
 
+	public double getMagentaV() {
+		return magentaV;
+	}
 
+	public double getYellowV() {
+		return yellowV;
+	}
+
+	public double getBlackV() {
+		return blackV;
+	}
+
+	public double getTcpp() {
+		return tcpp;
+	}
+
+	public String getPaper() {
+		return paper;
+	}
+
+	public String getDpi() {
+		return dpi;
+	}
+
+	public String getPrinter() {
+		return printer;
+	}
+
+	public String getMode() {
+		return mode;
+	}
 
 	Parcelable.Creator<DataDefinition> CREATOR = new Creator<DataDefinition>() {
 		
@@ -182,33 +229,43 @@ public class DataDefinition implements Parcelable {
 		@Override
 		public DataDefinition createFromParcel(Parcel source) {
 			// TODO Auto-generated method stub
-			DataDefinition dd = new DataDefinition();
-			dd.id = source.readInt();
-			dd.brand = source.readString();
-			dd.type = source.readString();
-			dd.title = source.readString();
-			dd.image = source.readString();
-			dd.price = source.readDouble();
-			dd.url = source.readString();
-			dd.ppi = source.readString();
-			dd.functions = source.readString();
-			dd.iccFile = source.readString();
-			dd.printSpeedBlack = source.readDouble();
-			dd.printSpeedColor = source.readDouble();
-			dd.maxInputCapacity = source.readInt();
-			dd.maxMonthlyDutyCycle = source.readInt();
-			dd.autoDuplex = source.readString();
-			dd.inkCyanPrice = source.readDouble();
-			dd.inkCyanYield = source.readInt();
-			dd.inkMagentaPrice = source.readDouble();
-			dd.inkMagentaYield = source.readInt();
-			dd.inkYellowPrice = source.readDouble();
-			dd.inkYellowYield = source.readInt();
-			dd.inkBlackPrice = source.readDouble();
-			dd.inkBlackYield = source.readInt();
+			DataDefinition parcelDd = new DataDefinition();
+			
+			parcelDd.cyanV = source.readDouble();
+			parcelDd.magentaV = source.readDouble();
+			parcelDd.yellowV = source.readDouble();
+			parcelDd.blackV = source.readDouble();
+			parcelDd.tcpp = source.readDouble();
+			
+			parcelDd.id = source.readInt();
+			parcelDd.brand = source.readString();
+			parcelDd.type = source.readString();
+			parcelDd.title = source.readString();
+			parcelDd.image = source.readString();
+			parcelDd.price = source.readDouble();
+			parcelDd.url = source.readString();
+			parcelDd.functions = source.readString();
+			parcelDd.iccFile = source.readString();
+			parcelDd.printSpeedBlack = source.readDouble();
+			parcelDd.printSpeedColor = source.readDouble();
+			parcelDd.maxInputCapacity = source.readInt();
+			parcelDd.maxMonthlyDutyCycle = source.readInt();
+			parcelDd.autoDuplex = source.readString();
+			parcelDd.inkCyanPrice = source.readDouble();
+			parcelDd.inkCyanYield = source.readInt();
+			parcelDd.inkMagentaPrice = source.readDouble();
+			parcelDd.inkMagentaYield = source.readInt();
+			parcelDd.inkYellowPrice = source.readDouble();
+			parcelDd.inkYellowYield = source.readInt();
+			parcelDd.inkBlackPrice = source.readDouble();
+			parcelDd.inkBlackYield = source.readInt();
 
-
-			return dd;
+			parcelDd.paper = source.readString();
+			parcelDd.dpi = source.readString();
+			parcelDd.printer = source.readString();
+			parcelDd.mode = source.readString();
+			
+			return parcelDd;
 		}
 	};
 
@@ -221,6 +278,12 @@ public class DataDefinition implements Parcelable {
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
 		// TODO Auto-generated method stub
+		dest.writeDouble(this.cyanV);
+		dest.writeDouble(this.magentaV);
+		dest.writeDouble(this.yellowV);
+		dest.writeDouble(this.blackV);
+		dest.writeDouble(this.tcpp);
+		
 		dest.writeInt(this.id);
 		dest.writeString(this.brand);
 		dest.writeString(this.type);
@@ -228,7 +291,6 @@ public class DataDefinition implements Parcelable {
 		dest.writeString(this.image);
 		dest.writeDouble(this.price);
 		dest.writeString(this.url);
-		dest.writeString(this.ppi);
 		dest.writeString(this.functions);
 		dest.writeString(this.iccFile);
 		dest.writeDouble(this.printSpeedBlack);
@@ -244,6 +306,11 @@ public class DataDefinition implements Parcelable {
 		dest.writeInt(this.inkYellowYield);
 		dest.writeDouble(this.inkBlackPrice);
 		dest.writeInt(this.inkBlackYield);
+		
+		dest.writeString(this.paper);
+		dest.writeString(this.dpi);
+		dest.writeString(this.printer);
+		dest.writeString(this.mode);
 	}
 
 }

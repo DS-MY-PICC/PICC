@@ -174,8 +174,8 @@ public class OptionsActivity extends Activity {
 		ResultItems.putExtra("pageSize", httpPG.getPageSize());
 		ResultItems.putExtra("imageResolution", httpPG.getImageResolution());
 		ResultItems.putExtra("printMode", httpPG.getPrintMode());
-		ResultItems.putExtra("printVolume", httpPG.getPrintVolume());
-		ResultItems.putExtra("printPeriod", httpPG.getPrintPeriod());
+		ResultItems.putExtra("printVolume", 1);
+		ResultItems.putExtra("printPeriod", 1);
 		ResultItems.putExtra("printerImage", printerImage);
 		
 		Log.d("hp File Path", "HPPICC file Path " + filePath);

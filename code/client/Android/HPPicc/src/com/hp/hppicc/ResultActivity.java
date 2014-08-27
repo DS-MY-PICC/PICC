@@ -14,13 +14,16 @@ import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.hp.hppicc.dataDefinition.DataDefinition;
 import com.hp.picc.utils.JsonHelper;
 
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -67,6 +70,8 @@ public class ResultActivity extends Activity {
 	SeekBar sbVolume;
 	
 	ImageView ivRsSelectedImage;
+	
+	DataDefinition resultDd;
 	
 	private ProgressDialog dialog;
 
@@ -250,7 +255,11 @@ public class ResultActivity extends Activity {
 	
 	public void onClickComparePrinters(View v)
 	{
-		Toast.makeText(getApplicationContext(), "Will compare prices with few printers in coming release", Toast.LENGTH_LONG).show();;
+		Toast.makeText(getApplicationContext(), "Will compare prices with few printers in coming release", Toast.LENGTH_LONG).show();
+		Intent comparePrinter = new Intent(getApplicationContext(), GetPrintersActivity.class);
+		comparePrinter.putExtra("isUpload", false);
+		comparePrinter.putExtra("printerId", printer);
+		startActivity(comparePrinter);
 	}
 	
 	class ImageUploadTask extends AsyncTask <Void, Void, String>{
@@ -311,70 +320,39 @@ public class ResultActivity extends Activity {
  
                 if (sResponse != null) {
                 	
-                	JSONObject json = new JSONObject(sResponse); 
-                	if(json.isNull("error")) {
+                	JSONArray json = new JSONArray( sResponse ); 
+                	resultDd = new DataDefinition( json.getJSONObject(0) );
                 		
-                    	Map<String, Object> resultMap = JsonHelper.getMap(json, "result");                    	
-                    	double tcpp = (Double) resultMap.get("tcpp");
-                    	gTcpp = tcpp;
-                    	tvRsIcpp.setText("$ " + String.valueOf(tcpp));
-                    	
-                    	double tpc = tcpp * (double)printVolume * (double)printPeriod;
-                    	BigDecimal tpcD = new BigDecimal(tpc).setScale(2, BigDecimal.ROUND_HALF_UP);
-                    	tvRsTPC.setText( "$ " + tpcD.toString());
-                    	Log.d("tpcd", "tpcd " + tpcD);
-                    	
-                    	double cyan = (Double) resultMap.get("cyan");
-                    	tvCyan.setText(String.valueOf(cyan) + "%");
-                    	
-                    	double magenta = (Double) resultMap.get("magenta");
-                    	tvMagenta.setText(String.valueOf(magenta) + "%");
-                    	
-                    	double yellow = (Double) resultMap.get("yellow");
-                    	tvYellow.setText(String.valueOf(yellow) + "%");
-                    	
-                    	double black = (Double) resultMap.get("black");
-                    	tvBlack.setText(String.valueOf(black) + "%");
-    					Log.d("SelectImageActivity", "tcpp: " + tcpp + "; cyan: " + cyan + "; magenta: " + magenta + "; yellow: " + yellow + "; black: " + black);
-    					
-//    					JSONObject printer = 
-    					
-    					JSONObject printerOB = json.getJSONObject("printer");
-    					
-    					double pricePrinter = printerOB.getDouble("price");
-    					gPrinterPrice = pricePrinter;
-    					tvRsPrice.setText("$ " + String.valueOf( pricePrinter ));
-    					
-    					double tco = pricePrinter + tpc;
-    					BigDecimal tcoD = new BigDecimal(tco).setScale(2, BigDecimal.ROUND_HALF_UP);
-    					tvRsTco.setText("$ " + tcoD.toString());
-    					
-    					String printerTitle = printerOB.getString("title");
-    					tvRsName.setText(printerTitle);
-    					
-//    					Map<String, Object> printerMap = JsonHelper.getMap(json, "printer");
-//    					String title = (String) resultMap.get("title");
-//    					double price = (Double) resultMap.get("price");
-    					Log.d("SelectImageActivity", "title: " + printerTitle + "; price: " + pricePrinter);
-    					
-//    					Map<String, Object> optionsMap = JsonHelper.getMap(json, "options");
-//    					String paper = (String) resultMap.get("paper");
-//    					String dpi = (String) resultMap.get("dpi");
-//    					String printer = (String) resultMap.get("printer");
-//    					String mode = (String) resultMap.get("mode");
-//    					Log.d("SelectImageActivity", "paper: " + paper + "; dpi: " + dpi);
-    					
-    					
-//                        Toast.makeText(getApplicationContext(), "Total Cost Per Print:" + tcpp,
-//                                Toast.LENGTH_LONG).show();
-                		
-                	} else {
-                		
-                		String error = json.getString("error");
-                		Toast.makeText(getApplicationContext(),error, Toast.LENGTH_LONG).show();
-                		Log.d("SelectImageActivity", "error=" + error);
-                    
-                	}
+                	gTcpp = resultDd.getTcpp();
+                	tvRsIcpp.setText("$ " + String.valueOf(gTcpp));
+                	
+                	double tpc = gTcpp * (double)printVolume * (double)printPeriod;
+                	BigDecimal tpcD = new BigDecimal(tpc).setScale(2, BigDecimal.ROUND_HALF_UP);
+                	tvRsTPC.setText( "$ " + tpcD.toString());
+                	Log.d("tpcd", "tpcd " + tpcD);
+                	
+                	double cyan = resultDd.getCyanV();
+                	tvCyan.setText(String.valueOf(cyan) + "%");                	
+                	double magenta = resultDd.getMagentaV();
+                	tvMagenta.setText(String.valueOf(magenta) + "%");                	
+                	double yellow = resultDd.getYellowV();
+                	tvYellow.setText(String.valueOf(yellow) + "%");                	
+                	double black = resultDd.getBlackV();
+                	tvBlack.setText(String.valueOf(black) + "%");
+                	
+					Log.d("SelectImageActivity", "tcpp: " + gTcpp + "; cyan: " + cyan + "; magenta: " + magenta + "; yellow: " + yellow + "; black: " + black);
+					
+					double pricePrinter = resultDd.getPrice();
+					gPrinterPrice = pricePrinter;
+					tvRsPrice.setText("$ " + String.valueOf( pricePrinter ));					
+					double tco = pricePrinter + tpc;
+					BigDecimal tcoD = new BigDecimal(tco).setScale(2, BigDecimal.ROUND_HALF_UP);
+					tvRsTco.setText("$ " + tcoD.toString());					
+					String printerTitle = resultDd.getTitle();
+					tvRsName.setText(printerTitle);
+					
+					Log.d("SelectImageActivity", "title: " + printerTitle + "; price: " + pricePrinter);
+					
                 }
             } catch (Exception e) {
 //                Toast.makeText(getApplicationContext(), e.getClass().getName(),
