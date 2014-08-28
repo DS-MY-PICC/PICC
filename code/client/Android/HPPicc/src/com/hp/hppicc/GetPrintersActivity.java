@@ -10,6 +10,9 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
+import org.json.JSONObject;
+
+import com.hp.hppicc.dataDefinition.PrinterData;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -133,9 +136,11 @@ public class GetPrintersActivity extends Activity {
 				try {
 					Log.d("getPrinters", "printersValue Json: " + result);
 					JSONArray printers = new JSONArray(result);
+					PrinterData pd = new PrinterData(printers.getJSONObject(0));
 					for (int i = 0; i < printers.length(); i++) {
 						// Log.d("Printer Name",
 						// String.valueOf(printers.length()));
+						
 						printer[i] = printers.getJSONObject(i).getString("title");
 						Log.d("Printer Name: ", printer[i]);
 					}
@@ -145,6 +150,7 @@ public class GetPrintersActivity extends Activity {
 					Intent options = new Intent(getApplicationContext(),PrinterActivity.class);
 					options.putExtra("printer", printer);
 					options.putExtra("filePath", filePath);
+					options.putExtra("pd", pd);
 					startActivity(options);
 					finish();
 

@@ -159,7 +159,7 @@ public class PrinterData implements Parcelable{
 		return inkBlackYield;
 	}
 	
-	Parcelable.Creator<PrinterData> CREATOR = new Creator<PrinterData>() {
+	public static final Parcelable.Creator<PrinterData> CREATOR = new Creator<PrinterData>() {
 		
 		@Override
 		public PrinterData[] newArray(int size) {
@@ -196,7 +196,7 @@ public class PrinterData implements Parcelable{
 			parcelPrinterData.inkBlackPrice = source.readDouble();
 			parcelPrinterData.inkBlackYield = source.readInt();
 			
-			return null;
+			return parcelPrinterData;
 		}
 	};
 

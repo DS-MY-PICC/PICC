@@ -12,11 +12,14 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.hp.hppicc.dataDefinition.PrinterData;
+
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.pdf.PdfDocument;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -58,6 +61,8 @@ public class PrinterActivity extends Activity{
 		
 		filePath = getIntent().getStringExtra("filePath");
 		Log.d("hp File Path", "HPPICC file Path in Printer " + filePath);
+		PrinterData pd = (PrinterData)getIntent().getParcelableExtra("pd");
+		Log.d("hp File Path", "pd parcel " + pd.getTitle());
 		
 		DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
 		int width = displayMetrics.widthPixels / 2;
