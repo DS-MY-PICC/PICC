@@ -1,12 +1,18 @@
 package com.hp.hppicc;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 import com.hp.hppicc.connectionChecking.ConnectionChecking;
 import com.hp.hppicc.dataDefinition.ResultData;
+import com.hp.hppicc.util.PrintersUtilRef;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -16,6 +22,7 @@ import android.content.Context;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -29,6 +36,7 @@ import android.os.Handler;
 import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.provider.Settings;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -63,6 +71,12 @@ public class UploadActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_upload);
+		
+		DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+		int width = displayMetrics.widthPixels / 2;
+		int height = displayMetrics.heightPixels;
+		Log.d("samsung heigh", "samsung height " + height);
+		Log.d("samsung width", "samsung width " + displayMetrics.widthPixels);
 		
 		ivUploadImage = (ImageView)findViewById(R.id.ivUploadImage);
 		tvAddPicture = (TextView)findViewById(R.id.tvAddPicture);
@@ -309,7 +323,13 @@ public class UploadActivity extends Activity {
 	{
 		Intent printerSelection = new Intent(getApplicationContext(), GetPrintersActivity.class);
 //		Intent printerSelection = new Intent(getApplicationContext(), PrinterActivity.class);
-		printerSelection.putExtra("filePath", filePath);
+		
+		ResultData rd = new ResultData(filePath);
+		printerSelection.putExtra("rd", (Parcelable)rd);
+		
+		PrintersUtilRef pu = PrintersUtilRef.getInstance();
+		pu.setImagePath(filePath);
+		
 		Log.d("hp File Path", "Upload filePath " + filePath);
 		startActivity(printerSelection);
 		overridePendingTransition(R.anim.lefttorightvisible, R.anim.lefttorightinvisible);
@@ -322,6 +342,24 @@ public class UploadActivity extends Activity {
 		else
 			Toast.makeText(getApplicationContext(), "failed", Toast.LENGTH_SHORT);
 	}
+	
+	public void showAlertDialogSingleButton(String title, String message) 
+	{	
+		AlertDialog.Builder ad = new AlertDialog.Builder(this);
+		ad.setCancelable(true);
+		ad.setTitle(title);
+		ad.setMessage(message);
+		ad.setNegativeButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+            	
+            	return;
+		        
+            }
+        });
+		
+		ad.show();
+
+    }
 	
 	public void showAlertDialog(String title, String message) 
 	{	
@@ -358,6 +396,12 @@ public class UploadActivity extends Activity {
 	public void onClickSpinner(View v)
 	{
 		Intent i = new Intent(this, OptionsActivity.class);
+		startActivity(i);
+	}
+	
+	public void Compare(View v)
+	{
+		Intent i = new Intent(this, CompareActivity.class);
 		startActivity(i);
 	}
 }

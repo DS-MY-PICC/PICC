@@ -331,6 +331,7 @@
 	                android:textColor="#FFFFFF" />
 	            
 	            <TextView
+	                android:layout_width="match_parent"
 	                android:id="@+id/tvRsName"
 	                android:text=""
 	                android:layout_marginLeft="10dp"

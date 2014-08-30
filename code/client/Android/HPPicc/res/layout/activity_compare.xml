@@ -1,0 +1,232 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000"
+    tools:context="${packageName}.${activityClass}" >
+
+    <TextView
+        android:id="@+id/valueChoices"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hello_world"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp" >
+
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="110dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
+            android:background="#FFFFFF" />
+
+        <ImageView
+            android:id="@+id/ivCcImage"
+            android:layout_width="130dp"
+            android:layout_height="90dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/imagetesting"
+            android:background="#0096d6" />
+    </RelativeLayout>
+
+    <TableLayout
+        android:id="@+id/tableLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/relativeLayout1"
+        android:layout_below="@+id/relativeLayout1"
+        android:layout_centerVertical="false"
+        android:layout_marginTop="15dp" >
+
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:text="Page Size"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:text=":"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/tvCcPageSize"
+                android:layout_marginLeft="10dp"
+                android:text="Actual Size"
+                android:textColor="#0096d6" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:text="IR"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:text=":"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/tvCcImageResolution"
+                android:layout_marginLeft="10dp"
+                android:text="100 DPI"
+                android:textColor="#0096d6" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:text="Print Mode"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:text=":"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/tvCcPrintMode"
+                android:layout_marginLeft="10dp"
+                android:text="Color"
+                android:textColor="#0096d6" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true" >
+
+            <TextView
+                android:text="Print Volume"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:text=":"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/tvRsPrintVolume"
+                android:layout_marginLeft="10dp"
+                android:text="100 pcs"
+                android:textColor="#0096d6" />
+
+            <ImageButton
+                android:id="@+id/ivVolome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#000000"
+                android:onClick="calculatePrintCost"
+                android:padding="0dp"
+                android:src="@drawable/downarrow" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/trVolumeSeekBar"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp">
+
+            <SeekBar
+                android:id="@+id/sbVolume"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_span="4"
+                android:max="100"
+                android:visibility="gone"
+                android:progress="1" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:text="Print Period"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:text=":"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/tvRsPrintPeriod"
+                android:layout_marginLeft="10dp"
+                android:text="10 days"
+                android:textColor="#0096d6" />
+
+            <ImageButton
+                android:id="@+id/ivPeriod"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#000000"
+                android:onClick="calculatePrintCost"
+                android:padding="0dp"
+                android:src="@drawable/downarrow" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/trPeriodSeekBar"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            >
+
+            <SeekBar
+                android:id="@+id/sbPeriod"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_span="4"
+                android:max="100"
+                android:progress="1"
+                android:visibility="gone" />
+        </TableRow>
+    </TableLayout>
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="1dp"
+        android:layout_height="fill_parent"
+        android:layout_toRightOf="@+id/tableLayout1"
+        android:layout_marginLeft="15dp"
+        android:background="#FFFFFF" />
+
+    <HorizontalScrollView
+        android:id="@+id/horizontalScrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignTop="@+id/relativeLayout1"
+        android:layout_margin="15dp"
+        android:layout_toRightOf="@+id/imageView6" >
+
+        <LinearLayout
+            android:id="@+id/llCcMultiplePrinters"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal" >
+            
+        </LinearLayout>
+    </HorizontalScrollView>
+
+</RelativeLayout>

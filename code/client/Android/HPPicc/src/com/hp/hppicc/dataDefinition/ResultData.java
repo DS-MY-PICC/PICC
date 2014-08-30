@@ -1,11 +1,22 @@
 package com.hp.hppicc.dataDefinition;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.json.JSONObject;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 public class ResultData implements Parcelable {
+	
+	private String filePath;
+	private ArrayList<String> printerNames;
+	private ArrayList<Integer> printerIds;
+	private ArrayList<String> printerUrls;
+	
+	private String choices;
 	
 	private int id;
 	private String brand;
@@ -46,6 +57,11 @@ public class ResultData implements Parcelable {
 		
 	}
 	
+	public ResultData(String filePath)
+	{
+		this.filePath = filePath;
+	}
+	
 	public ResultData(JSONObject json)
 	{
 		try
@@ -66,20 +82,20 @@ public class ResultData implements Parcelable {
 			this.price = printerResult.getDouble("price");
 			this.url = printerResult.getString("url");
 			this.functions = printerResult.getString("functions");
-			this.iccFile = printerResult.getString("icc_file");
-			this.printSpeedBlack = printerResult.getDouble("print_speed_black");
-			this.printSpeedColor = printerResult.getDouble("print_speed_color");
-			this.maxInputCapacity = printerResult.getInt("max_input_capacity");
-			this.maxMonthlyDutyCycle = printerResult.getInt("max_monthly_duty_cycle");
-			this.autoDuplex = printerResult.getString("auto_duplex");
-			this.inkCyanPrice = printerResult.getDouble("ink_cyan_price");
-			this.inkCyanYield = printerResult.getInt("ink_cyan_yield");
-			this.inkMagentaPrice = printerResult.getDouble("ink_magenta_price");
-			this.inkMagentaYield = printerResult.getInt("ink_magenta_yield");
-			this.inkYellowPrice = printerResult.getDouble("ink_yellow_price");
-			this.inkYellowYield = printerResult.getInt("ink_yellow_yield");
-			this.inkBlackPrice = printerResult.getDouble("ink_black_price");
-			this.inkBlackYield = printerResult.getInt("ink_black_yield");
+			this.iccFile = printerResult.getString("iccFile");
+			this.printSpeedBlack = printerResult.getDouble("printSpeedBlack");
+			this.printSpeedColor = printerResult.getDouble("printSpeedColor");
+			this.maxInputCapacity = printerResult.getInt("maxInputCapacity");
+			this.maxMonthlyDutyCycle = printerResult.getInt("maxMonthlyDutyCycle");
+			this.autoDuplex = printerResult.getString("autoDuplex");
+			this.inkCyanPrice = printerResult.getDouble("inkCyanPrice");
+			this.inkCyanYield = printerResult.getInt("inkCyanYield");
+			this.inkMagentaPrice = printerResult.getDouble("inkMagentaPrice");
+			this.inkMagentaYield = printerResult.getInt("inkMagentaYield");
+			this.inkYellowPrice = printerResult.getDouble("inkYellowPrice");
+			this.inkYellowYield = printerResult.getInt("inkYellowYield");
+			this.inkBlackPrice = printerResult.getDouble("inkBlackPrice");
+			this.inkBlackYield = printerResult.getInt("inkBlackYield");
 			
 			JSONObject options = json.getJSONObject("options");
 			this.paper = options.getString("paper");
@@ -90,8 +106,77 @@ public class ResultData implements Parcelable {
 		catch(Exception ex)
 		{
 			ex.printStackTrace();
+			Log.e("result", "result Data error" + ex.getMessage());
 		}
 
+	}
+	
+	
+	
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getChoices() {
+		return choices;
+	}
+
+	public void setChoices(String choices) {
+		this.choices = choices;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
+	public void setPaper(String paper) {
+		this.paper = paper;
+	}
+
+	public void setDpi(String dpi) {
+		this.dpi = dpi;
+	}
+
+	public void setMode(String mode) {
+		this.mode = mode;
+	}
+	
+	public ArrayList<String> getPrinterNames() {
+		return printerNames;
+	}
+
+	public void setPrinterNames(ArrayList<String> printerNames) {
+		this.printerNames = printerNames;
+	}
+
+	public ArrayList<Integer> getPrinterIds() {
+		return printerIds;
+	}
+
+	public void setPrinterIds(ArrayList<Integer> printerIds) {
+		this.printerIds = printerIds;
+	}
+
+	public ArrayList<String> getPrinterUrls() {
+		return printerUrls;
+	}
+
+	public void setPrinterUrls(ArrayList<String> printerUrls) {
+		this.printerUrls = printerUrls;
+	}
+	
+	public void setFilePath(String filePath)
+	{
+		this.filePath = filePath;				
+	}
+
+	public String getFilePath()
+	{
+		return filePath;
 	}
 
 	public int getId() {
@@ -218,7 +303,7 @@ public class ResultData implements Parcelable {
 		return mode;
 	}
 
-	Parcelable.Creator<ResultData> CREATOR = new Creator<ResultData>() {
+	public static final Parcelable.Creator<ResultData> CREATOR = new Creator<ResultData>() {
 		
 		@Override
 		public ResultData[] newArray(int size) {
@@ -231,6 +316,9 @@ public class ResultData implements Parcelable {
 			// TODO Auto-generated method stub
 			ResultData parcelDd = new ResultData();
 			
+			parcelDd.filePath = source.readString();
+			parcelDd.choices = source.readString();
+			
 			parcelDd.cyanV = source.readDouble();
 			parcelDd.magentaV = source.readDouble();
 			parcelDd.yellowV = source.readDouble();
@@ -238,27 +326,27 @@ public class ResultData implements Parcelable {
 			parcelDd.tcpp = source.readDouble();
 			
 			parcelDd.id = source.readInt();
-			parcelDd.brand = source.readString();
-			parcelDd.type = source.readString();
+//			parcelDd.brand = source.readString();
+//			parcelDd.type = source.readString();
 			parcelDd.title = source.readString();
-			parcelDd.image = source.readString();
-			parcelDd.price = source.readDouble();
-			parcelDd.url = source.readString();
-			parcelDd.functions = source.readString();
-			parcelDd.iccFile = source.readString();
-			parcelDd.printSpeedBlack = source.readDouble();
-			parcelDd.printSpeedColor = source.readDouble();
-			parcelDd.maxInputCapacity = source.readInt();
-			parcelDd.maxMonthlyDutyCycle = source.readInt();
-			parcelDd.autoDuplex = source.readString();
-			parcelDd.inkCyanPrice = source.readDouble();
-			parcelDd.inkCyanYield = source.readInt();
-			parcelDd.inkMagentaPrice = source.readDouble();
-			parcelDd.inkMagentaYield = source.readInt();
-			parcelDd.inkYellowPrice = source.readDouble();
-			parcelDd.inkYellowYield = source.readInt();
-			parcelDd.inkBlackPrice = source.readDouble();
-			parcelDd.inkBlackYield = source.readInt();
+//			parcelDd.image = source.readString();
+//			parcelDd.price = source.readDouble();
+//			parcelDd.url = source.readString();
+//			parcelDd.functions = source.readString();
+//			parcelDd.iccFile = source.readString();
+//			parcelDd.printSpeedBlack = source.readDouble();
+//			parcelDd.printSpeedColor = source.readDouble();
+//			parcelDd.maxInputCapacity = source.readInt();
+//			parcelDd.maxMonthlyDutyCycle = source.readInt();
+//			parcelDd.autoDuplex = source.readString();
+//			parcelDd.inkCyanPrice = source.readDouble();
+//			parcelDd.inkCyanYield = source.readInt();
+//			parcelDd.inkMagentaPrice = source.readDouble();
+//			parcelDd.inkMagentaYield = source.readInt();
+//			parcelDd.inkYellowPrice = source.readDouble();
+//			parcelDd.inkYellowYield = source.readInt();
+//			parcelDd.inkBlackPrice = source.readDouble();
+//			parcelDd.inkBlackYield = source.readInt();
 
 			parcelDd.paper = source.readString();
 			parcelDd.dpi = source.readString();
@@ -278,6 +366,9 @@ public class ResultData implements Parcelable {
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
 		// TODO Auto-generated method stub
+		dest.writeString(this.filePath);
+		dest.writeString(this.choices);
+		
 		dest.writeDouble(this.cyanV);
 		dest.writeDouble(this.magentaV);
 		dest.writeDouble(this.yellowV);
@@ -285,27 +376,27 @@ public class ResultData implements Parcelable {
 		dest.writeDouble(this.tcpp);
 		
 		dest.writeInt(this.id);
-		dest.writeString(this.brand);
-		dest.writeString(this.type);
+//		dest.writeString(this.brand);
+//		dest.writeString(this.type);
 		dest.writeString(this.title);
-		dest.writeString(this.image);
-		dest.writeDouble(this.price);
-		dest.writeString(this.url);
-		dest.writeString(this.functions);
-		dest.writeString(this.iccFile);
-		dest.writeDouble(this.printSpeedBlack);
-		dest.writeDouble(this.printSpeedColor);
-		dest.writeDouble(this.maxInputCapacity);
-		dest.writeDouble(this.maxMonthlyDutyCycle);
-		dest.writeString(this.autoDuplex);
-		dest.writeDouble(this.inkCyanPrice);
-		dest.writeInt(this.inkCyanYield);
-		dest.writeDouble(this.inkMagentaPrice);
-		dest.writeInt(this.inkMagentaYield);
-		dest.writeDouble(this.inkYellowPrice);
-		dest.writeInt(this.inkYellowYield);
-		dest.writeDouble(this.inkBlackPrice);
-		dest.writeInt(this.inkBlackYield);
+//		dest.writeString(this.image);
+//		dest.writeDouble(this.price);
+//		dest.writeString(this.url);
+//		dest.writeString(this.functions);
+//		dest.writeString(this.iccFile);
+//		dest.writeDouble(this.printSpeedBlack);
+//		dest.writeDouble(this.printSpeedColor);
+//		dest.writeDouble(this.maxInputCapacity);
+//		dest.writeDouble(this.maxMonthlyDutyCycle);
+//		dest.writeString(this.autoDuplex);
+//		dest.writeDouble(this.inkCyanPrice);
+//		dest.writeInt(this.inkCyanYield);
+//		dest.writeDouble(this.inkMagentaPrice);
+//		dest.writeInt(this.inkMagentaYield);
+//		dest.writeDouble(this.inkYellowPrice);
+//		dest.writeInt(this.inkYellowYield);
+//		dest.writeDouble(this.inkBlackPrice);
+//		dest.writeInt(this.inkBlackYield);
 		
 		dest.writeString(this.paper);
 		dest.writeString(this.dpi);

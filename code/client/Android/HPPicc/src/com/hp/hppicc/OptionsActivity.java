@@ -7,7 +7,9 @@ import javax.crypto.spec.IvParameterSpec;
 
 import org.apache.http.client.methods.HttpGet;
 
+import com.hp.hppicc.dataDefinition.ResultData;
 import com.hp.hppicc.httpPostGet.HttpPostGet;
+import com.hp.hppicc.util.PrintersUtilRef;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -18,6 +20,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.media.Image;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,129 +34,91 @@ import android.widget.Toast;
 
 public class OptionsActivity extends Activity {
 	
-	HttpPostGet httpPG;
-	private String filePath;
-	private String printerId;
-		
 	TextView tvPrinter;
 	Spinner spinner2;
-	int printerImage;
-
+	
+	ResultData rd = new ResultData();
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		
 		try{
-		httpPG = new HttpPostGet();
-		
-		super.onCreate(savedInstanceState);
-		overridePendingTransition(R.anim.lefttorightvisible, R.anim.lefttorightinvisible);
-		setContentView(R.layout.activity_options);
-		
-		ActionBar ab = getActionBar();
-		ab.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#0096d6")));
-		
-		printerId = getIntent().getStringExtra("printer");
-		filePath = getIntent().getStringExtra( "filePath" );
-		printerImage = getIntent().getIntExtra("printImage", R.drawable.oofficejet6600);
-		
-		Log.d("Optionsitems", "printer: " + printerId + "\n" + "filePath: " + filePath );
-		
-		if(filePath != null && !filePath.isEmpty())
-		{		
-			//display Picture
-			// bimatp factory
-	        BitmapFactory.Options options = new BitmapFactory.Options();
-	        // downsizing image as it throws OutOfMemory Exception for larger
-	        // images
-	        options.inSampleSize = 8;
-	        final Bitmap bitmap = BitmapFactory.decodeFile(filePath, options);
-	        ImageView ivPic = (ImageView)findViewById(R.id.ivPic);
-	        ivPic.setImageBitmap(bitmap);
-		}
-		
-		final Spinner spPageSize = (Spinner)findViewById(R.id.spPageSize);
-		spPageSize.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-			@Override
-			public void onItemSelected(AdapterView<?> parent, View view,
-					int position, long id) {
-				// TODO Auto-generated method stub
-				httpPG.setPageSize( spPageSize.getSelectedItem().toString() );
+			super.onCreate(savedInstanceState);
+			overridePendingTransition(R.anim.lefttorightvisible, R.anim.lefttorightinvisible);
+			setContentView(R.layout.activity_options);
+			
+			ActionBar ab = getActionBar();
+			ab.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#0096d6")));
+			
+			PrintersUtilRef pu = PrintersUtilRef.getInstance();
+			
+			if(pu.getImagePath() != null && !pu.getImagePath().isEmpty())
+			{		
+				//display Picture
+				// bimatp factory
+		        BitmapFactory.Options options = new BitmapFactory.Options();
+		        // downsizing image as it throws OutOfMemory Exception for larger
+		        // images
+		        options.inSampleSize = 8;
+		        final Bitmap bitmap = BitmapFactory.decodeFile(pu.getImagePath(), options);
+		        ImageView ivPic = (ImageView)findViewById(R.id.ivPic);
+		        ivPic.setImageBitmap(bitmap);
 			}
-
-			@Override
-			public void onNothingSelected(AdapterView<?> parent) {
-				// TODO Auto-generated method stub
+			else
+			{
+				ImageView ivPic = (ImageView)findViewById(R.id.ivPic);
+		        ivPic.setImageResource(R.drawable.aaimagetesting);
 			}
-		});
-		
-		final Spinner spImageResoultion = (Spinner)findViewById(R.id.spImageResolution);
-		spImageResoultion.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-			@Override
-			public void onItemSelected(AdapterView<?> parent, View view,
-					int position, long id) {
-				// TODO Auto-generated method stub
-				httpPG.setImageResolution(spImageResoultion.getSelectedItem().toString());
-			}
-
-			@Override
-			public void onNothingSelected(AdapterView<?> parent) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
-		
-		final Spinner spPrintVolume = (Spinner)findViewById(R.id.spPrintVolume);
-		spPrintVolume.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-			@Override
-			public void onItemSelected(AdapterView<?> parent, View view,
-					int position, long id) {
-				// TODO Auto-generated method stub
-				httpPG.setPrintVolume(Integer.parseInt( spPrintVolume.getSelectedItem().toString() ) );
-			}
-
-			@Override
-			public void onNothingSelected(AdapterView<?> parent) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
-		
-		final Spinner spPrintMode = (Spinner)findViewById(R.id.spPrintMode);
-		spPrintMode.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-			@Override
-			public void onItemSelected(AdapterView<?> parent, View view,
-					int position, long id) {
-				// TODO Auto-generated method stub
-				httpPG.setPrintMode(spPrintMode.getSelectedItem().toString());
-			}
-
-			@Override
-			public void onNothingSelected(AdapterView<?> parent) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
-		
-		final Spinner spPrintPeriod = (Spinner)findViewById(R.id.spPrintPeriod);
-		spPrintPeriod.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-			@Override
-			public void onItemSelected(AdapterView<?> parent, View view,
-					int position, long id) {
-				// TODO Auto-generated method stub
-				httpPG.setPrintPeriod(spPrintPeriod.getSelectedItem().toString());
-			}
-
-			@Override
-			public void onNothingSelected(AdapterView<?> parent) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
+			
+			final Spinner spPageSize = (Spinner)findViewById(R.id.spPageSize);
+			spPageSize.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+	
+				@Override
+				public void onItemSelected(AdapterView<?> parent, View view,
+						int position, long id) {
+					// TODO Auto-generated method stub
+					rd.setPaper( spPageSize.getSelectedItem().toString() );
+				}
+	
+				@Override
+				public void onNothingSelected(AdapterView<?> parent) {
+					// TODO Auto-generated method stub
+				}
+			});
+			
+			final Spinner spImageResoultion = (Spinner)findViewById(R.id.spImageResolution);
+			spImageResoultion.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+	
+				@Override
+				public void onItemSelected(AdapterView<?> parent, View view,
+						int position, long id) {
+					// TODO Auto-generated method stub
+					rd.setDpi(spImageResoultion.getSelectedItem().toString());
+				}
+	
+				@Override
+				public void onNothingSelected(AdapterView<?> parent) {
+					// TODO Auto-generated method stub
+					
+				}
+			});
+			
+			final Spinner spPrintMode = (Spinner)findViewById(R.id.spPrintMode);
+			spPrintMode.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+	
+				@Override
+				public void onItemSelected(AdapterView<?> parent, View view,
+						int position, long id) {
+					// TODO Auto-generated method stub
+					rd.setMode(spPrintMode.getSelectedItem().toString());
+				}
+	
+				@Override
+				public void onNothingSelected(AdapterView<?> parent) {
+					// TODO Auto-generated method stub
+					
+				}
+			});
 		}
 		catch(Exception ex)
 		{
@@ -163,21 +128,13 @@ public class OptionsActivity extends Activity {
 	
 	public void onClickNext(View v)
 	{
-		continuePrinter(filePath);
+		continuePrinter(rd.getFilePath());
 	}
 	
 	private void continuePrinter(String filePath)
 	{
 		Intent ResultItems = new Intent(getApplicationContext(), ResultActivity.class);
-		ResultItems.putExtra("printer", printerId);
-		ResultItems.putExtra("filePath", filePath);
-		ResultItems.putExtra("pageSize", httpPG.getPageSize());
-		ResultItems.putExtra("imageResolution", httpPG.getImageResolution());
-		ResultItems.putExtra("printMode", httpPG.getPrintMode());
-		ResultItems.putExtra("printVolume", 1);
-		ResultItems.putExtra("printPeriod", 1);
-		ResultItems.putExtra("printerImage", printerImage);
-		
+		ResultItems.putExtra("rd", (Parcelable)rd);
 		Log.d("hp File Path", "HPPICC file Path " + filePath);
 		startActivity(ResultItems);
 		overridePendingTransition(R.anim.lefttorightvisible, R.anim.lefttorightinvisible);

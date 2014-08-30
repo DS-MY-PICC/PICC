@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -13,6 +15,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.hp.hppicc.dataDefinition.PrinterData;
+import com.hp.hppicc.dataDefinition.ResultData;
+import com.hp.hppicc.util.PrintersUtilRef;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -24,32 +28,37 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.Toast;
 
 public class PrinterActivity extends Activity{
 	
-	private String filePath;
-	
 	ListView list;
-	String[] printer = {
+	
+	String[] printerLocal = {
 		"HP Officejet 6600 from Local",
 		"HP Photosmart 7520",
 		"Epson WorkForce WF-3520",
 		"Canon Pixma MG8220",
-		"HP DesignJet 30"
+		"HP DesignJet 30",
+		"HP Color LaserJet CM6040 MFP"
 	} ;
-	Integer[] imageId = {
-			R.drawable.oofficejet6600,
-			R.drawable.tphotosmart7520,
-			R.drawable.thepsonwf3520,
-			R.drawable.focanonmg8220,
-			R.drawable.fidesignjet30
-	};
+	
+	String[] imageUrl = {
+			"url1",
+			"url2",
+			"url3",
+			"url4",
+			"url5",
+			"url6"
+		};
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -59,47 +68,56 @@ public class PrinterActivity extends Activity{
 		ActionBar ab = getActionBar();
 		ab.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#0096d6")));
 		
-		filePath = getIntent().getStringExtra("filePath");
-		Log.d("hp File Path", "HPPICC file Path in Printer " + filePath);
-		PrinterData pd = (PrinterData)getIntent().getParcelableExtra("pd");
-		Log.d("hp File Path", "pd parcel " + pd.getTitle());
+		String printer[] = getIntent().getStringArrayExtra("printer");
+		int printerId[] = getIntent().getIntArrayExtra("printerId");
+		ArrayList<String> localPrinterNames = this.getIntent().getStringArrayListExtra("localPrinterNames");
 		
-		DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
-		int width = displayMetrics.widthPixels / 2;
-		int height = displayMetrics.heightPixels;
-		Log.d("samsung heigh", "samsung height " + height);
-		Log.d("samsung width", "samsung width " + displayMetrics.widthPixels);
+		final ArrayList<String> printerAl = new ArrayList<String>();
+		final ArrayList<Integer> printerIdAl = new ArrayList<Integer>();
 		
-		
-		String[] printerList = getIntent().getStringArrayExtra("printer");
-		if(printerList != null){
-			//Log.d("printer", printerList.toString());			
-			printer = printerList;
+		final PrintersUtilRef pu = PrintersUtilRef.getInstance();
+		if(pu.getPrinterList().size() != 0)
+		{
+			for(int i = 0; i < pu.getPrinterList().size(); i ++)
+			{
+				System.out.println("Printer Name: " + pu.getPrinterName(i));
+				printerAl.add(pu.getPrinterName(i));
+				printerIdAl.add( i + 1);
+			}
 		}
 		
-		CustomList adapter = new CustomList(PrinterActivity.this, printer, imageId);
+		CustomList adapter = new CustomList(PrinterActivity.this, printerAl, PrintersUtilRef.imageId, printerIdAl);
 		list=(ListView)findViewById(R.id.list);
-				list.setAdapter(adapter);
-				list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+		list.setAdapter(adapter);
+		list.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+		
+		list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-		            @Override
-		            public void onItemClick(AdapterView<?> parent, View view,
-		                                    int position, long id) {
-		            	int pos = position + 1;
-		            	
-		            	StringBuilder sb = new StringBuilder();
-		            	sb.append(pos);
-		            	String printerId = sb.toString();
-		            	
-		            	Log.d("printer", "printer Choose" + printer [+ position] + " position " + position + " printerId " + printerId);
-//		                Toast.makeText(PrinterActivity.this, "You Clicked at " +printer[+ position] + " go to option", Toast.LENGTH_SHORT).show();
-		                Intent options = new Intent(getApplicationContext(), OptionsActivity.class);
-		                options.putExtra("printer", printerId);
-		                options.putExtra("filePath", filePath);
-		                options.putExtra("printImage", imageId[+ position]);
-		        		startActivity(options);
-		        		overridePendingTransition(R.anim.lefttorightvisible, R.anim.lefttorightinvisible);
-		            }
-		        });
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+            	
+            	String selectedPrinterId = (String) parent.getItemAtPosition(position);
+            	Log.d("Printers", "parentItem: " + selectedPrinterId);
+            	Log.d("printers", "more printers: " + list.getSelectedItem());
+                
+                pu.setSelectedPrinterId(Integer.parseInt(selectedPrinterId));
+                
+                pu.setSelectedPrinter(pu.getPrinterName(Integer.parseInt(selectedPrinterId)));
+                
+                pu.setSelectedPrinterImage(PrintersUtilRef.imageId[position]);
+                
+                for(int i = 0; i < pu.getPrinterNames().size(); i++)
+                {
+                	Log.d("value", "cleared:" + pu.getPrinterName(i));
+                }
+                
+                Log.d("pu", "selectedPRinter:" + pu.getSelectedPrinter());
+                Log.d("pu", "selectedPRinter:" + pu.getSelectedPrinterId());
+                
+                Intent options = new Intent(getApplicationContext(), OptionsActivity.class);
+                startActivity(options);
+            }
+        });
 	}		
 }

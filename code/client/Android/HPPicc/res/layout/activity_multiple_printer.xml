@@ -1,0 +1,82 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000"
+    tools:context="${packageName}.${activityClass}" >
+
+    <TextView
+        android:id="@+id/tvmpChoosen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:textColor="#FFFFFF"
+        android:fontFamily="text style HPFutura Book"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:text="You have choosen:" />
+
+    <ImageView
+        android:id="@+id/ivMpChoosen"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignLeft="@+id/tvmpChoosen"
+        android:layout_below="@+id/tvmpChoosen"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/oofficejet6600" />
+
+    <TextView
+        android:id="@+id/tvMpPrChoosen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/ivMpChoosen"
+        android:layout_marginLeft="15dp"
+        android:layout_toRightOf="@+id/ivMpChoosen"
+        android:text="Printer Name"
+        android:textSize="20dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#FFFFFF" />
+
+    <TextView
+        android:id="@+id/tvMpOthers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/ivMpChoosen"
+        android:layout_below="@+id/ivMpChoosen"
+        android:layout_marginTop="15dp"
+        android:text="Please pick at least one Printer to Compare:"
+        android:fontFamily="text style HPFutura Book"
+        android:textStyle="bold"
+        android:textSize="15dp"
+        android:textColor="#FFFFFF" />
+
+    <ListView
+        android:id="@+id/lvOthers"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_alignLeft="@+id/tvMpOthers"
+        android:layout_below="@+id/tvMpOthers"
+        android:layout_above="@+id/ibMpNext"
+        android:layout_centerHorizontal="true"
+        android:divider="#FFCC00"
+        android:dividerHeight="1px"
+        android:layout_marginRight="15dp" >
+
+    </ListView>
+
+    <ImageButton
+        android:id="@+id/ibMpNext"
+        android:layout_below="@+id/lv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#000000"
+        android:layout_alignRight="@+id/lvOthers"
+        android:onClick="onClickNext"
+        android:src="@drawable/nextbutton" />
+
+</RelativeLayout>

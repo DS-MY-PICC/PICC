@@ -129,54 +129,4 @@
         android:layout_marginRight="15dp"
         android:layout_toRightOf="@+id/tvPrintMode"
         android:background="@android:drawable/btn_dropdown"
-        android:entries="@array/printMode" />
-
-    <TextView
-        android:id="@+id/tvPrintVolume"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/tvImageResolution"
-        android:layout_below="@+id/tvPrintMode"
-        android:layout_marginTop="20dp"
-        android:fontFamily="HPFutura Book"
-        android:text="Print Volume:"
-        android:textColor="#FFFFFF"
-        android:textSize="20dp"
-        android1:visibility="gone" />
-    
-    <Spinner
-        android:id="@+id/spPrintVolume"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/tvPrintVolume"
-        android:layout_marginRight="15dp"
-        android:layout_toRightOf="@+id/tvPrintVolume"
-        android:background="@android:drawable/btn_dropdown"
-        android:entries="@array/printVolume"
-        android1:visibility="gone" />
-
-    <TextView
-        android:id="@+id/tvPrintPeriod"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/tvPrintVolume"
-        android:layout_below="@+id/tvPrintVolume"
-        android:layout_marginTop="20dp"
-        android:fontFamily="HPFutura Book"
-        android:text="Print Period:"
-        android:textColor="#FFFFFF"
-        android:textSize="20dp"
-        android1:visibility="gone" />
-    
-    <Spinner
-        android:id="@+id/spPrintPeriod"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/tvPrintPeriod"
-        android:layout_marginRight="15dp"
-        android:layout_toRightOf="@+id/tvPrintPeriod"
-        android:background="@android:drawable/btn_dropdown"
-        android:entries="@array/printPeriod" 
-        android1:visibility="gone"/>
-
-</RelativeLayout>
+        android:entries="@array/printMode" /></RelativeLayout>
