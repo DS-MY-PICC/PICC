@@ -144,11 +144,11 @@ public class CompareActivity extends Activity {
 				// TODO Auto-generated method stub
 				volume = (double)progress;
 				if(volume > 1)
-					tvRsPrintVolume.setText(String.valueOf(progress) + "days");
+					tvRsPrintVolume.setText(String.valueOf(progress) + " pcs");
 				else
 				{
 					volume = 1;
-					tvRsPrintVolume.setText(String.valueOf(progress) + " day");
+					tvRsPrintVolume.setText(String.valueOf((int)volume) + " pc");
 				}
 			}
 		});
@@ -174,11 +174,11 @@ public class CompareActivity extends Activity {
 				// TODO Auto-generated method stub
 				period =(double)progress;
 				if(progress > 1)
-					tvRsPrintPeriod.setText(String.valueOf(progress) + " pcs");
+					tvRsPrintPeriod.setText(String.valueOf(progress) + " days");
 				else
 				{
 					period = 1;
-					tvRsPrintPeriod.setText(String.valueOf(progress) + " pcs");
+					tvRsPrintPeriod.setText(String.valueOf((int)period) + " day");
 				}
 			}
 		});
