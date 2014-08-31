@@ -402,6 +402,9 @@ public class UploadActivity extends Activity {
 	public void Compare(View v)
 	{
 		Intent i = new Intent(this, CompareActivity.class);
+		PrintersUtilRef.setImageResolution("100 DPI");
+		PrintersUtilRef.setPageSize("Actual Size");
+		PrintersUtilRef.setPrintMode("Color");
 		startActivity(i);
 	}
 }

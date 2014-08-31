@@ -58,13 +58,13 @@
                 android:textColor="#FFFFFF" />
 
             <TextView
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="5dp"
                 android:text=":"
                 android:textColor="#FFFFFF" />
 
             <TextView
                 android:id="@+id/tvCcPageSize"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="5dp"
                 android:text="Actual Size"
                 android:textColor="#0096d6" />
         </TableRow>
@@ -79,13 +79,13 @@
                 android:textColor="#FFFFFF" />
 
             <TextView
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="5dp"
                 android:text=":"
                 android:textColor="#FFFFFF" />
 
             <TextView
                 android:id="@+id/tvCcImageResolution"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="5dp"
                 android:text="100 DPI"
                 android:textColor="#0096d6" />
         </TableRow>
@@ -100,35 +100,36 @@
                 android:textColor="#FFFFFF" />
 
             <TextView
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="5dp"
                 android:text=":"
                 android:textColor="#FFFFFF" />
 
             <TextView
                 android:id="@+id/tvCcPrintMode"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="5dp"
                 android:text="Color"
                 android:textColor="#0096d6" />
         </TableRow>
 
         <TableRow
-            android:id="@+id/tableRow4"
+            android:id="@+id/trRsVolome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true" >
+            android:layout_centerVertical="true"
+            android:onClick="calculatePrintCost" >
 
             <TextView
                 android:text="Print Volume"
                 android:textColor="#FFFFFF" />
 
             <TextView
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="5dp"
                 android:text=":"
                 android:textColor="#FFFFFF" />
 
             <TextView
                 android:id="@+id/tvRsPrintVolume"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="5dp"
                 android:text="100 pcs"
                 android:textColor="#0096d6" />
 
@@ -158,22 +159,24 @@
         </TableRow>
 
         <TableRow
-            android:id="@+id/tableRow5"
+            android:id="@+id/trRsPeriod"
+            android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:onClick="calculatePrintCost" >
 
             <TextView
                 android:text="Print Period"
                 android:textColor="#FFFFFF" />
 
             <TextView
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="5dp"
                 android:text=":"
                 android:textColor="#FFFFFF" />
 
             <TextView
                 android:id="@+id/tvRsPrintPeriod"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="5dp"
                 android:text="10 days"
                 android:textColor="#0096d6" />
 
@@ -217,16 +220,47 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignTop="@+id/relativeLayout1"
-        android:layout_margin="15dp"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="50dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:layout_toRightOf="@+id/imageView6" >
-
-        <LinearLayout
-            android:id="@+id/llCcMultiplePrinters"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal" >
-            
-        </LinearLayout>
+		<RelativeLayout 
+		    android:layout_width="match_parent"
+		    android:layout_height="match_parent">
+	        <LinearLayout
+	            android:id="@+id/llCcMultiplePrinters"
+	            android:layout_width="wrap_content"
+	            android:layout_height="match_parent"
+	            android:layout_centerVertical="true"
+	            android:orientation="horizontal" >
+	            
+	        </LinearLayout>
+        </RelativeLayout>
     </HorizontalScrollView>
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_above="@+id/textView1"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_toRightOf="@+id/imageView6"
+        android:background="#FFCC00" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+     	android:layout_alignParentBottom="true"
+     	android:layout_marginBottom="10dp"
+        android:layout_alignLeft="@+id/imageView1"
+        android:textColor = "#FFFFFF"
+        android:text="ICPP: Ink Cost Per Page, TPC: Total Print Cost, TCO: Total Cost of Ownership"
+        android:textStyle="italic"
+        android:textSize="10dp" />
 
 </RelativeLayout>

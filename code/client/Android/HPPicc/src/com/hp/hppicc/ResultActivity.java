@@ -37,6 +37,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.SeekBar;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -51,6 +52,8 @@ public class ResultActivity extends Activity {
 	int printVolume = 1;
 	int printPeriod = 1;
 	int printerImage;
+	
+	ScrollView scrollView1;
 	
 	double gTcpp;
 	double gTpc;
@@ -111,28 +114,33 @@ public class ResultActivity extends Activity {
 		ivRsSelectedImage = (ImageView)findViewById(R.id.ivRsSelectedImage);
 		ivRsSelectedImage.setImageResource(pu.getSelectedPrinterImage());
 		
+		scrollView1 = (ScrollView) findViewById(R.id.scrollView1);
+		
 		ActionBar ab = getActionBar();
 		ab.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#0096d6")));
 		
 		TextView tvRsPageSize = (TextView)findViewById(R.id.tvRsPageSize);
-		tvRsPageSize.setText(rd.getPaper());
-		Log.d("paper", rd.getPaper());
-		if(rd.getPaper().equals("Actual Size"))
+		tvRsPageSize.setText(pu.getPageSize());
+		Log.d("paper", pu.getPageSize());
+		if(pu.getPageSize().equals("Actual Size"))
 		{
 			pageSize = String.valueOf(-1);
 		}
 		else
 		{
-			pageSize = rd.getPaper().replace("A", "");
+			pageSize = pu.getPageSize().replace("A", "");
+			Log.d("options", "selected PrintMode:" + pu.getPageSize());
 		}
 		
 		TextView tvRsImageResolution = (TextView)findViewById(R.id.tvRsImageResolution);
-		tvRsImageResolution.setText(rd.getDpi());
-		imageResolution = rd.getDpi().replace(" DPI", "");
+		tvRsImageResolution.setText(pu.getImageResolution());
+		imageResolution = pu.getImageResolution().replace(" DPI", "");
+		Log.d("options", "selected IM:" + pu.getImageResolution());
 		
 		TextView tvRsPrintMode = (TextView)findViewById(R.id.tvRsPrintMode);
-		tvRsPrintMode.setText(rd.getMode());
-		printMode = rd.getMode().toLowerCase();
+		tvRsPrintMode.setText(pu.getPrintMode());
+		printMode = pu.getPrintMode().toLowerCase();
+		Log.d("options", "selected PM:" + pu.getPrintMode());
 		
 		final TextView tvRsPrintVolume = (TextView)findViewById(R.id.tvRsPrintVolume);
 		tvRsPrintVolume.setText(String.valueOf( printVolume ) + " pc");
@@ -235,7 +243,8 @@ public class ResultActivity extends Activity {
             	rd = new ResultData( json.getJSONObject(0) );
             		
             	gTcpp = rd.getTcpp();
-            	tvRsIcpp.setText("$ " + String.valueOf(gTcpp));
+            	BigDecimal tcpp = new BigDecimal(rd.getTcpp()).setScale(2, BigDecimal.ROUND_HALF_UP);
+            	tvRsIcpp.setText("$ " + tcpp.toString());
             	
             	double tpc = gTcpp * (double)printVolume * (double)printPeriod;
             	BigDecimal tpcD = new BigDecimal(tpc).setScale(2, BigDecimal.ROUND_HALF_UP);
@@ -291,7 +300,7 @@ public class ResultActivity extends Activity {
 	}
 	
 	public void calculatePrintCost(View v) {
-		if(v.getId() == R.id.ivVolome)
+		if(v.getId() == R.id.ivVolome || v.getId() == R.id.trVolume)
 		{
 			if(trVolumeSeekBar.getVisibility() == View.VISIBLE)
 			{
@@ -303,7 +312,7 @@ public class ResultActivity extends Activity {
 				trVolumeSeekBar.setVisibility(View.VISIBLE);
 			}
 		}
-		else if(v.getId() == R.id.ivPeriod)
+		else
 		{
 			if(trPeriodSeekBar.getVisibility() == View.VISIBLE)
 			{
@@ -313,6 +322,14 @@ public class ResultActivity extends Activity {
 			{
 				trVolumeSeekBar.setVisibility(View.GONE);
 				trPeriodSeekBar.setVisibility(View.VISIBLE);
+				scrollView1.post( new Runnable() {
+					
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						scrollView1.fullScroll(View.FOCUS_DOWN);
+					}
+				});
 			}				
 		}
 	}

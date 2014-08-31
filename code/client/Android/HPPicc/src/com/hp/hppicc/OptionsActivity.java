@@ -50,7 +50,7 @@ public class OptionsActivity extends Activity {
 			ActionBar ab = getActionBar();
 			ab.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#0096d6")));
 			
-			PrintersUtilRef pu = PrintersUtilRef.getInstance();
+			final PrintersUtilRef pu = PrintersUtilRef.getInstance();
 			
 			if(pu.getImagePath() != null && !pu.getImagePath().isEmpty())
 			{		
@@ -77,7 +77,8 @@ public class OptionsActivity extends Activity {
 				public void onItemSelected(AdapterView<?> parent, View view,
 						int position, long id) {
 					// TODO Auto-generated method stub
-					rd.setPaper( spPageSize.getSelectedItem().toString() );
+					pu.setPageSize( spPageSize.getSelectedItem().toString() );
+					Log.d("options", "selected PrintMode:" + pu.getPageSize());
 				}
 	
 				@Override
@@ -93,7 +94,8 @@ public class OptionsActivity extends Activity {
 				public void onItemSelected(AdapterView<?> parent, View view,
 						int position, long id) {
 					// TODO Auto-generated method stub
-					rd.setDpi(spImageResoultion.getSelectedItem().toString());
+					pu.setImageResolution(spImageResoultion.getSelectedItem().toString());
+					Log.d("options", "selected PrintMode:" + pu.getImageResolution());
 				}
 	
 				@Override
@@ -110,7 +112,8 @@ public class OptionsActivity extends Activity {
 				public void onItemSelected(AdapterView<?> parent, View view,
 						int position, long id) {
 					// TODO Auto-generated method stub
-					rd.setMode(spPrintMode.getSelectedItem().toString());
+					pu.setPrintMode(spPrintMode.getSelectedItem().toString());
+					Log.d("options", "selected PrintMode:" + pu.getPrintMode());
 				}
 	
 				@Override

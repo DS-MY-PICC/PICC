@@ -29,15 +29,18 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.pdf.PdfDocument;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils.StringSplitter;
 import android.util.Log;
 import android.view.DragEvent;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
@@ -78,9 +81,19 @@ public class CompareActivity extends Activity {
 		ActionBar ab = getActionBar();
 		ab.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#0096d6")));
 		
+		WindowManager.LayoutParams attrs = getWindow().getAttributes();
+		attrs.flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;
+		getWindow().setAttributes(attrs);
+		
 		rd = (ResultData)getIntent().getParcelableExtra("rd");
-		choices = rd.getChoices();
-		String[] choicesArray = choices.split("\\|");
+		
+		String[] choicesArray;
+		
+		if(choices != null)
+		{
+			choices = rd.getChoices();
+			choicesArray = choices.split("\\|");
+		}
 		
 		PrintersUtilRef pu = PrintersUtilRef.getInstance();		
 		
@@ -98,16 +111,13 @@ public class CompareActivity extends Activity {
 		}
 		
 		TextView tvCcPageSize = (TextView)findViewById(R.id.tvCcPageSize);
-		if(rd.getPaper().equals("-1"))
-			tvCcPageSize.setText("Actual Size");
-		else
-			tvCcPageSize.setText("A" + rd.getPaper());
+		tvCcPageSize.setText(pu.getPageSize());
 		
 		TextView tvCcImageResolution = (TextView)findViewById(R.id.tvCcImageResolution);
-		tvCcImageResolution.setText(rd.getDpi() + " DPI");
-		TextView tvCcPrintMode = (TextView)findViewById(R.id.tvCcPrintMode);
+		tvCcImageResolution.setText(pu.getImageResolution());
 		
-		tvCcPrintMode.setText(rd.getMode().substring(0).toUpperCase());
+		TextView tvCcPrintMode = (TextView)findViewById(R.id.tvCcPrintMode);		
+		tvCcPrintMode.setText(pu.getPrintMode());
 		
 		final TextView tvRsPrintVolume = (TextView)findViewById(R.id.tvRsPrintVolume);
 		final TextView tvRsPrintPeriod = (TextView)findViewById(R.id.tvRsPrintPeriod);
@@ -119,7 +129,7 @@ public class CompareActivity extends Activity {
 			@Override
 			public void onStopTrackingTouch(SeekBar seekBar) {
 				// TODO Auto-generated method stub
-				
+				calculateCost();
 			}
 			
 			@Override
@@ -140,7 +150,6 @@ public class CompareActivity extends Activity {
 					volume = 1;
 					tvRsPrintVolume.setText(String.valueOf(progress) + " day");
 				}
-				calculateCost();
 			}
 		});
 		sbPeriod = (SeekBar)findViewById(R.id.sbPeriod);
@@ -150,7 +159,7 @@ public class CompareActivity extends Activity {
 			@Override
 			public void onStopTrackingTouch(SeekBar seekBar) {
 				// TODO Auto-generated method stub
-				
+				calculateCost();
 			}
 			
 			@Override
@@ -171,28 +180,31 @@ public class CompareActivity extends Activity {
 					period = 1;
 					tvRsPrintPeriod.setText(String.valueOf(progress) + " pcs");
 				}
-				calculateCost();
 			}
 		});
 		
-		String sResponse = "";
-		if(choicesArray.length > 0)
-		{
-			String s = "";
-			for(int i = 0; i < choicesArray.length; i ++)
-			{
-				int l = Integer.parseInt(choicesArray[i]) - 1;
-				Log.d("Compare", "l is " + l);
-				String  json = jsonLocal[l];
-				s += json + ",";
-			}
-			s = "[" + s;
-			StringBuilder sb = new StringBuilder(s);
-			sb = sb.replace(sb.lastIndexOf(","), sb.length(), "]");
-			sResponse = sb.toString();					
-			Log.d("Compare", "Compare String " + sResponse);
-		}
+//		String[] valueStrings = {"6","2","3"};
+//		String sResponse = "";
+//		if(valueStrings.length > 0)
+//		{
+//			String s = "";
+//			for(int i = 0; i < valueStrings.length; i ++)
+//			{
+//				int l = Integer.parseInt(valueStrings[i]) - 1;
+//				Log.d("Compare", "l is " + l);
+//				String  json = jsonLocal[l];
+//				s += json + ",";
+//			}
+//			s = "[" + s;
+//			StringBuilder sb = new StringBuilder(s);
+//			sb = sb.replace(sb.lastIndexOf(","), sb.length(), "]");
+//			sResponse = sb.toString();					
+//			Log.d("Compare", "Compare String " + sResponse);
+//		}
 		
+		//offline
+//		texttableLayout(sResponse);
+		//online
 		dialog = ProgressDialog.show(CompareActivity.this, "Comparing in Progress...",
 	                "Please wait...", true);
         new CompareCalculateTask().execute();
@@ -209,29 +221,61 @@ public class CompareActivity extends Activity {
             	
             	TableLayout.LayoutParams tableParams = new TableLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT);
         		TableRow.LayoutParams tableRowParams = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,TableRow.LayoutParams.WRAP_CONTENT);
-        		tableRowParams.setMargins(30, 20, 30, 0);
         		
         		TableLayout PrintersMul = new TableLayout(this);
         		PrintersMul.setLayoutParams(tableParams);
         		
         		TableRow trIvPrinter = new TableRow(this);
         		trIvPrinter.setLayoutParams(tableRowParams);
+        		TextView tvIvRef = new TextView(this);
+        		tvIvRef.setText("");
+        		tvIvRef.setTextColor(Color.parseColor("#000000"));
+        		trIvPrinter.addView(tvIvRef, 0);
         		
         		TableRow trName = new TableRow(this);
         		trName.setLayoutParams(tableRowParams);
-        		
+        		TextView tvNameRef = new TextView(this);
+        		tvNameRef.setText("Name:");
+        		tvNameRef.setTextColor(Color.parseColor("#FFFFFF"));
+        		trName.addView(tvNameRef, 0);
+        		tvNameRef.setGravity(Gravity.CENTER);
+        		trName.setGravity(Gravity.CENTER);
         		
         		TableRow trPrice = new TableRow(this);
         		trPrice.setLayoutParams(tableRowParams);
+        		TextView tvPriceRef = new TextView(this);
+        		tvPriceRef.setText("Price:");
+        		tvPriceRef.setTextColor(Color.parseColor("#FFFFFF"));
+        		trPrice.addView(tvPriceRef, 0);
+        		tvPriceRef.setGravity(Gravity.CENTER);
+        		trPrice.setGravity(Gravity.CENTER);
         		
         		TableRow trIcpp = new TableRow(this);
         		trIcpp.setLayoutParams(tableRowParams);
+        		TextView tvIcppRef = new TextView(this);
+        		tvIcppRef.setText("ICPP:");
+        		tvIcppRef.setTextColor(Color.parseColor("#FFFFFF"));
+        		trIcpp.addView(tvIcppRef, 0);
+        		tvIcppRef.setGravity(Gravity.CENTER);
+        		trIcpp.setGravity(Gravity.CENTER);
         		
         		TableRow trTpc = new TableRow(this);
         		trTpc.setLayoutParams(tableRowParams);
+        		TextView tvTpcRef = new TextView(this);
+        		tvTpcRef.setText("TPC:");
+        		tvTpcRef.setTextColor(Color.parseColor("#FFFFFF"));
+        		trTpc.addView(tvTpcRef, 0);
+        		tvTpcRef.setGravity(Gravity.CENTER);
+        		trTpc.setGravity(Gravity.CENTER);
         		
         		TableRow trTco = new TableRow(this);
         		trTco.setLayoutParams(tableRowParams);
+        		TextView tvTcoRef = new TextView(this);
+        		tvTcoRef.setText("TCO:");
+        		tvTcoRef.setTextColor(Color.parseColor("#FFFFFF"));
+        		trTco.addView(tvTcoRef, 0);
+        		tvTcoRef.setGravity(Gravity.CENTER);
+        		trTco.setGravity(Gravity.CENTER);
             	
             	for(int i = 0; i < json.length(); i ++)
             	{
@@ -262,29 +306,39 @@ public class CompareActivity extends Activity {
             		
             		ImageView ivPrinter = new ImageView(this);
             		ivPrinter.setImageResource(PrintersUtilRef.imageId[resultDd.getId() - 1]);
-            		trIvPrinter.addView(ivPrinter, i);
+            		trIvPrinter.addView(ivPrinter, i + 1);
             		
-//            		tvName.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+            		tvName.setPadding(10, 0, 10, 0);
+            		tvName.setWidth(400);
             		tvName.setText(resultDd.getTitle());
-            		trName.addView(tvName, i);
+            		trName.addView(tvName, i + 1);
+            		tvName.setGravity(Gravity.CENTER);
             		
-            		tvPrice.setText("$ " + String.valueOf(resultDd.getPrice()));
-            		trPrice.addView(tvPrice, i);
+            		BigDecimal printerPrice = new BigDecimal(resultDd.getPrice()).setScale(2,BigDecimal.ROUND_HALF_UP);
+            		tvPrice.setText("$ " + printerPrice.toString());
+            		trPrice.addView(tvPrice, i + 1);
+            		tvPrice.setGravity(Gravity.CENTER);
             		
-            		tvIcpp.setText("$ " + String.valueOf(resultDd.getTcpp()));
-            		trIcpp.addView(tvIcpp, i);
+            		BigDecimal icpp = new BigDecimal(resultDd.getTcpp()).setScale(2,BigDecimal.ROUND_HALF_UP);
+            		tvIcpp.setText("$ " + icpp.toString());
+            		trIcpp.addView(tvIcpp, i + 1);
+            		tvIcpp.setGravity(Gravity.CENTER);
             		
-            		double tpc = resultDd.getPrice() * 100 * 10;
-            		BigDecimal tpcD = new BigDecimal(100.09).setScale(2, BigDecimal.ROUND_HALF_UP);
+            		double tpc = resultDd.getTcpp() * 100 * 10;
+            		BigDecimal tpcD = new BigDecimal(tpc).setScale(2, BigDecimal.ROUND_HALF_UP);
             		tvTpc.setText("$ " + tpcD.toString());
-            		trTpc.addView(tvTpc, i);
-            		tipccArray.add(tvIcpp);
+            		trTpc.addView(tvTpc, i + 1);
+            		tvTpc.setGravity(Gravity.CENTER);
+            		tipccArray.add(tvTpc);
             		
-            		double totalCost = tpc + rd.getPrice();
+            		double totalCost = tpc + resultDd.getPrice();
             		BigDecimal totalCostD = new BigDecimal(totalCost).setScale(2, BigDecimal.ROUND_HALF_UP); 
             		tvTco.setText("$ " + totalCostD.toString());
-            		trTco.addView(tvTco, i);
+            		trTco.addView(tvTco, i + 1);
+            		tvTco.setGravity(Gravity.CENTER);
             		totalCostArray.add(tvTco);
+            		
+            		PrintersUtilRef.addPrinterResultData(i, resultDd);
             	}
             	
             	PrintersMul.addView(trIvPrinter, 0);
@@ -305,22 +359,24 @@ public class CompareActivity extends Activity {
 	
 	private void calculateCost()
 	{
-		double tpc = rd.getTcpp() * volume * period;
-		BigDecimal tpcd = new BigDecimal(tpc).setScale(2, BigDecimal.ROUND_HALF_UP);
-		double totalCost = rd.getPrice() + tpc;
-		BigDecimal totalCostd = new BigDecimal(totalCost).setScale(2, BigDecimal.ROUND_HALF_UP);
-		
 		for(int i = 0; i < tipccArray.size(); i ++)
 		{
+			ResultData rd = PrintersUtilRef.getPrinterResultData(i);
+			
+			double tpc = rd.getTcpp() * period * volume;
+			BigDecimal tpcd = new BigDecimal(tpc).setScale(2, BigDecimal.ROUND_HALF_UP);
 			tipccArray.get(i).setText("$ " + tpcd.toString());
-			totalCostArray.get(i).setText("$ " + totalCostd.toString());
+			
+			double toc = tpc + rd.getPrice();
+			BigDecimal tocD = new BigDecimal(toc).setScale(2, BigDecimal.ROUND_HALF_UP);
+			totalCostArray.get(i).setText("$ " + tocD.toString());
 		}
 				
 	}
 	
 	public void calculatePrintCost(View v)
 	{
-		if(v.getId() == R.id.ivVolome)
+		if(v.getId() == R.id.ivVolome  || v.getId() == R.id.trRsVolome)
 		{
 			if(sbVolume.getVisibility() == View.GONE)
 			{
