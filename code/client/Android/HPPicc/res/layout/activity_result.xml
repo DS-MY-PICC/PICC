@@ -63,7 +63,7 @@
 			        android:layout_width="wrap_content"
 			        android:layout_height="wrap_content"
 			        android:fontFamily="HPFutura Book"
-			        android:text="%"
+			        android:text=""
 			        android:textColor="#FF00FF"
 			        android:textSize="15dp"
 			        android:textStyle="italic" />
@@ -83,7 +83,7 @@
 			        android:layout_width="wrap_content"
 			        android:layout_height="wrap_content"
 			        android:fontFamily="HPFutura Book"
-			        android:text="%"
+			        android:text=""
 			        android:textColor="#00FFFF"
 			        android:textSize="15dp" 
 			        android:textStyle="italic"/>
@@ -104,7 +104,7 @@
 			        android:layout_width="wrap_content"
 		            android:layout_height="wrap_content"
 		            android:fontFamily="HPFutura Book"
-		            android:text="%"
+		            android:text=""
 		            android:textSize="15dp"
 			        android:textColor="#FFFF00" 
 			        android:textStyle="italic"/>
@@ -124,7 +124,7 @@
 		            android:layout_width="wrap_content"
 		            android:layout_height="wrap_content"
 		            android:fontFamily="HPFutura Book"
-		            android:text="%"
+		            android:text=""
 		            android:textSize="15dp"
 		            android:textColor="#BDBDBD"
 		            android:textStyle="italic"
@@ -221,6 +221,7 @@
                     android:id="@+id/trVolume"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
                     android:onClick="calculatePrintCost" >
 
                     <TextView
@@ -258,6 +259,7 @@
                     android:id="@+id/trVolumeSeekBar"
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
+                    android:layout_marginRight="15dp"
                     android:visibility="gone" >
 
                     <SeekBar
