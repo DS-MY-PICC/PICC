@@ -57,15 +57,6 @@ public class CompareActivity extends Activity {
 	
 	ProgressDialog dialog;
 	
-	String[] jsonLocal = {
-			"{ \"result\": { \"magenta\": 15.5, \"cyan\": 17.39, \"yellow\": 29.78, \"tcpp\": 1.51, \"black\": 32.88 }, \"printer\": { \"id\": 1, \"brand\": \"HP\", \"type\": \"Color Inkjet\", \"title\": \"HP Officejet 6600\", \"image\": \"http://15.125.96.127:8080/upload/printer/oofficejet6600.png\", \"price\": 129, \"url\": \"\", \"ppi\": null, \"functions\": \"Print,Copy,Scan,Fax,Web\", \"iccFile\": \"adobe/CMYK/WebCoatedFOGRA28.icc\", \"printSpeedBlack\": 18, \"printSpeedColor\": 13, \"maxInputCapacity\": 250, \"maxMonthlyDutyCycle\": 12000, \"autoDuplex\": \"Yes\", \"inkCyanPrice\": 10.99, \"inkCyanYield\": 330, \"inkMagentaPrice\": 10.99, \"inkMagentaYield\": 330, \"inkYellowPrice\": 10.99, \"inkYellowYield\": 330, \"inkBlackPrice\": 19.99, \"inkBlackYield\": 400 }, \"options\": { \"paper\": \"-1\", \"dpi\": \"100\", \"printer\": \"1\", \"mode\": \"grayscale\" } }",
-			"{ \"result\": { \"magenta\": 15.5, \"cyan\": 17.39, \"yellow\": 29.78, \"tcpp\": 1.1, \"black\": 32.88 }, \"printer\": { \"id\": 2, \"brand\": \"HP\", \"type\": \"Color Inkjet\", \"title\": \"HP Photosmart 7520\", \"image\": \"http://15.125.96.127:8080/upload/printer/tphotosmart7520.png\", \"price\": 199.99, \"url\": \"\", \"ppi\": null, \"functions\": \"Print,Copy,Scan,Fax\", \"iccFile\": \"adobe/CMYK/WebCoatedFOGRA28.icc\", \"printSpeedBlack\": 15, \"printSpeedColor\": 9.3, \"maxInputCapacity\": 500, \"maxMonthlyDutyCycle\": 12000, \"autoDuplex\": \"Yes\", \"inkCyanPrice\": 15.3, \"inkCyanYield\": 750, \"inkMagentaPrice\": 15.3, \"inkMagentaYield\": 750, \"inkYellowPrice\": 15.3, \"inkYellowYield\": 750, \"inkBlackPrice\": 28.85, \"inkBlackYield\": 800 }, \"options\": { \"paper\": \"-1\", \"dpi\": \"100\", \"printer\": \"2\", \"mode\": \"grayscale\" } }",
-			"{ \"result\": { \"magenta\": 15.5, \"cyan\": 17.39, \"yellow\": 29.78, \"tcpp\": 1.46, \"black\": 32.88 }, \"printer\": { \"id\": 3, \"brand\": \"Epson\", \"type\": \"Color Inkjet\", \"title\": \"Epson WorkForce WF-3520\", \"image\": \"http://15.125.96.127:8080/upload/printer/thepsonwf3520.png\", \"price\": 119.99, \"url\": \"\", \"ppi\": null, \"functions\": \"Print,Copy,Scan,Fax\", \"iccFile\": \"adobe/CMYK/WebCoatedFOGRA28.icc\", \"printSpeedBlack\": 15, \"printSpeedColor\": 9.3, \"maxInputCapacity\": 500, \"maxMonthlyDutyCycle\": 12000, \"autoDuplex\": \"Yes\", \"inkCyanPrice\": 17.09, \"inkCyanYield\": 470, \"inkMagentaPrice\": 17.09, \"inkMagentaYield\": 470, \"inkYellowPrice\": 17.09, \"inkYellowYield\": 470, \"inkBlackPrice\": 18.99, \"inkBlackYield\": 385 }, \"options\": { \"paper\": \"-1\", \"dpi\": \"100\", \"printer\": \"3\", \"mode\": \"grayscale\" } }",
-			"{ \"result\": { \"magenta\": 15.5, \"cyan\": 17.39, \"yellow\": 29.78, \"tcpp\": 1.55, \"black\": 32.88 }, \"printer\": { \"id\": 4, \"brand\": \"Canon\", \"type\": \"Color Inkjet\", \"title\": \"Canon Pixma MG8220\", \"image\": \"http://15.125.96.127:8080/upload/printer/focanonmg8220.png\", \"price\": 245.39, \"url\": \"\", \"ppi\": null, \"functions\": \"Print,Copy,Scan,Fax\", \"iccFile\": \"adobe/CMYK/WebCoatedFOGRA28.icc\", \"printSpeedBlack\": 15, \"printSpeedColor\": 9.3, \"maxInputCapacity\": 500, \"maxMonthlyDutyCycle\": 12000, \"autoDuplex\": \"Yes\", \"inkCyanPrice\": 13.33, \"inkCyanYield\": 466, \"inkMagentaPrice\": 13.33, \"inkMagentaYield\": 447, \"inkYellowPrice\": 13.33, \"inkYellowYield\": 478, \"inkBlackPrice\": 15.99, \"inkBlackYield\": 311 }, \"options\": { \"paper\": \"-1\", \"dpi\": \"100\", \"printer\": \"4\", \"mode\": \"grayscale\" } }",
-			"{ \"result\": { \"magenta\": 15.5, \"cyan\": 17.39, \"yellow\": 29.78, \"tcpp\": 0.69, \"black\": 32.88 }, \"printer\": { \"id\": 5, \"brand\": \"HP\", \"type\": \"Color Inkjet\", \"title\": \"HP DesignJet 30\", \"image\": \"http://15.125.96.127:8080/upload/printer/fidesignjet30.png\", \"price\": 1399.99, \"url\": \"\", \"ppi\": null, \"functions\": \"Print,Copy,Scan,Fax\", \"iccFile\": \"adobe/CMYK/WebCoatedFOGRA28.icc\", \"printSpeedBlack\": 15, \"printSpeedColor\": 9.3, \"maxInputCapacity\": 500, \"maxMonthlyDutyCycle\": 12000, \"autoDuplex\": \"Yes\", \"inkCyanPrice\": 32.78, \"inkCyanYield\": 1200, \"inkMagentaPrice\": 32.78, \"inkMagentaYield\": 1200, \"inkYellowPrice\": 32.78, \"inkYellowYield\": 1200, \"inkBlackPrice\": 45.99, \"inkBlackYield\": 2000 }, \"options\": { \"paper\": \"-1\", \"dpi\": \"100\", \"printer\": \"5\", \"mode\": \"grayscale\" } }",
-			"{ \"result\": { \"magenta\": 15.5, \"cyan\": 17.39, \"yellow\": 29.78, \"tcpp\": 0.14, \"black\": 32.88 }, \"printer\": { \"id\": 6, \"brand\": \"HP\", \"type\": \"Color Laserjet\", \"title\": \"HP Color LaserJet CM6040 MFP\", \"image\": \"http://15.125.96.127:8080/upload/printer/laserjet_cm6040.png\", \"price\": 11190.5, \"url\": \"\", \"ppi\": null, \"functions\": \"Print,Copy,Scan\", \"iccFile\": \"adobe/CMYK/WebCoatedFOGRA28.icc\", \"printSpeedBlack\": 15, \"printSpeedColor\": 15, \"maxInputCapacity\": 500, \"maxMonthlyDutyCycle\": 12000, \"autoDuplex\": \"Yes\", \"inkCyanPrice\": 90, \"inkCyanYield\": 21000, \"inkMagentaPrice\": 90, \"inkMagentaYield\": 21000, \"inkYellowPrice\": 90, \"inkYellowYield\": 21000, \"inkBlackPrice\": 90, \"inkBlackYield\": 19500 }, \"options\": { \"paper\": \"-1\", \"dpi\": \"100\", \"printer\": \"6\", \"mode\": \"grayscale\" } }"
-	};
-	
 	ArrayList<TextView> totalCostArray = new ArrayList<TextView>();
 	ArrayList<TextView> tipccArray = new ArrayList<TextView>();
 	
@@ -111,19 +102,34 @@ public class CompareActivity extends Activity {
 		}
 		
 		TextView tvCcPageSize = (TextView)findViewById(R.id.tvCcPageSize);
-		tvCcPageSize.setText(pu.getPageSize());
+		if(pu.getPageSize().equals("-1"))
+			tvCcPageSize.setText("Actual Size");
+		else
+			tvCcPageSize.setText("A" + pu.getPageSize());
 		
 		TextView tvCcImageResolution = (TextView)findViewById(R.id.tvCcImageResolution);
-		tvCcImageResolution.setText(pu.getImageResolution());
+		tvCcImageResolution.setText(pu.getImageResolution()+" DPI");
 		
-		TextView tvCcPrintMode = (TextView)findViewById(R.id.tvCcPrintMode);		
-		tvCcPrintMode.setText(pu.getPrintMode());
+		TextView tvCcPrintMode = (TextView)findViewById(R.id.tvCcPrintMode);
+		if(pu.getPrintMode().equals("color"))
+			tvCcPrintMode.setText("Color");
+		else
+			tvCcPrintMode.setText("GrayScale");
 		
 		final TextView tvRsPrintVolume = (TextView)findViewById(R.id.tvRsPrintVolume);
+		if(pu.getPrintVolume() > 1)
+			tvRsPrintVolume.setText(String.valueOf(pu.getPrintVolume()) + " pcs");
+		else
+			tvRsPrintVolume.setText(String.valueOf(pu.getPrintVolume()) + " pc");
+		
 		final TextView tvRsPrintPeriod = (TextView)findViewById(R.id.tvRsPrintPeriod);
+		if(pu.getPrintPeriod() > 1)
+			tvRsPrintPeriod.setText(String.valueOf(pu.getPrintPeriod()) + " Days");
+		else
+			tvRsPrintPeriod.setText(String.valueOf(pu.getPrintPeriod()) + " Day");
 		
 		sbVolume = (SeekBar)findViewById(R.id.sbVolume);
-		sbVolume.setProgress(100);
+		sbVolume.setProgress(pu.getPrintVolume());
 		sbVolume.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 			
 			@Override
@@ -153,7 +159,7 @@ public class CompareActivity extends Activity {
 			}
 		});
 		sbPeriod = (SeekBar)findViewById(R.id.sbPeriod);
-		sbPeriod.setProgress(10);
+		sbPeriod.setProgress(pu.getPrintVolume());
 		sbPeriod.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 			
 			@Override
@@ -183,34 +189,10 @@ public class CompareActivity extends Activity {
 			}
 		});
 		
-//		String[] valueStrings = {"6","2","3"};
-//		String sResponse = "";
-//		if(valueStrings.length > 0)
-//		{
-//			String s = "";
-//			for(int i = 0; i < valueStrings.length; i ++)
-//			{
-//				int l = Integer.parseInt(valueStrings[i]) - 1;
-//				Log.d("Compare", "l is " + l);
-//				String  json = jsonLocal[l];
-//				s += json + ",";
-//			}
-//			s = "[" + s;
-//			StringBuilder sb = new StringBuilder(s);
-//			sb = sb.replace(sb.lastIndexOf(","), sb.length(), "]");
-//			sResponse = sb.toString();					
-//			Log.d("Compare", "Compare String " + sResponse);
-//		}
-		
-		//offline
-//		texttableLayout(sResponse);
-		//online
 		dialog = ProgressDialog.show(CompareActivity.this, "Comparing in Progress...",
 	                "Please wait...", true);
         new CompareCalculateTask().execute();
 	}
-	
-	
 	
 	protected void texttableLayout(String sResponse) {
         try { 
@@ -324,7 +306,7 @@ public class CompareActivity extends Activity {
             		trIcpp.addView(tvIcpp, i + 1);
             		tvIcpp.setGravity(Gravity.CENTER);
             		
-            		double tpc = resultDd.getTcpp() * 100 * 10;
+            		double tpc = resultDd.getTcpp() * PrintersUtilRef.getPrintPeriod() * PrintersUtilRef.getPrintVolume();
             		BigDecimal tpcD = new BigDecimal(tpc).setScale(2, BigDecimal.ROUND_HALF_UP);
             		tvTpc.setText("$ " + tpcD.toString());
             		trTpc.addView(tvTpc, i + 1);

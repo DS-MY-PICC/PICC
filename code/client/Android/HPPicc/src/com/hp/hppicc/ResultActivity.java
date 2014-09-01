@@ -45,12 +45,7 @@ import android.widget.Toast;
 
 public class ResultActivity extends Activity {
 	
-	String printer;
-	String pageSize;
-	String imageResolution;
-	String printMode;
-	int printVolume = 1;
-	int printPeriod = 1;
+	ResultData rd;
 	int printerImage;
 	
 	ScrollView scrollView1;
@@ -75,17 +70,6 @@ public class ResultActivity extends Activity {
 	
 	ImageView ivRsSelectedImage;
 	
-	ResultData rd;
-	
-	String[] jsonLocal = {
-			"[ { \"result\": { \"magenta\": 15.5, \"cyan\": 17.39, \"yellow\": 29.78, \"tcpp\": 1.51, \"black\": 32.88 }, \"printer\": { \"id\": 1, \"brand\": \"HP\", \"type\": \"Color Inkjet\", \"title\": \"HP Officejet 6600\", \"image\": \"http://15.125.96.127:8080/upload/printer/oofficejet6600.png\", \"price\": 129, \"url\": \"\", \"ppi\": null, \"functions\": \"Print,Copy,Scan,Fax,Web\", \"iccFile\": \"adobe/CMYK/WebCoatedFOGRA28.icc\", \"printSpeedBlack\": 18, \"printSpeedColor\": 13, \"maxInputCapacity\": 250, \"maxMonthlyDutyCycle\": 12000, \"autoDuplex\": \"Yes\", \"inkCyanPrice\": 10.99, \"inkCyanYield\": 330, \"inkMagentaPrice\": 10.99, \"inkMagentaYield\": 330, \"inkYellowPrice\": 10.99, \"inkYellowYield\": 330, \"inkBlackPrice\": 19.99, \"inkBlackYield\": 400 }, \"options\": { \"paper\": \"-1\", \"dpi\": \"100\", \"printer\": \"1\", \"mode\": \"grayscale\" } } ]",
-			"[ { \"result\": { \"magenta\": 15.5, \"cyan\": 17.39, \"yellow\": 29.78, \"tcpp\": 1.1, \"black\": 32.88 }, \"printer\": { \"id\": 2, \"brand\": \"HP\", \"type\": \"Color Inkjet\", \"title\": \"HP Photosmart 7520\", \"image\": \"http://15.125.96.127:8080/upload/printer/tphotosmart7520.png\", \"price\": 199.99, \"url\": \"\", \"ppi\": null, \"functions\": \"Print,Copy,Scan,Fax\", \"iccFile\": \"adobe/CMYK/WebCoatedFOGRA28.icc\", \"printSpeedBlack\": 15, \"printSpeedColor\": 9.3, \"maxInputCapacity\": 500, \"maxMonthlyDutyCycle\": 12000, \"autoDuplex\": \"Yes\", \"inkCyanPrice\": 15.3, \"inkCyanYield\": 750, \"inkMagentaPrice\": 15.3, \"inkMagentaYield\": 750, \"inkYellowPrice\": 15.3, \"inkYellowYield\": 750, \"inkBlackPrice\": 28.85, \"inkBlackYield\": 800 }, \"options\": { \"paper\": \"-1\", \"dpi\": \"100\", \"printer\": \"2\", \"mode\": \"grayscale\" } } ]",
-			"[ { \"result\": { \"magenta\": 15.5, \"cyan\": 17.39, \"yellow\": 29.78, \"tcpp\": 1.46, \"black\": 32.88 }, \"printer\": { \"id\": 3, \"brand\": \"Epson\", \"type\": \"Color Inkjet\", \"title\": \"Epson WorkForce WF-3520\", \"image\": \"http://15.125.96.127:8080/upload/printer/thepsonwf3520.png\", \"price\": 119.99, \"url\": \"\", \"ppi\": null, \"functions\": \"Print,Copy,Scan,Fax\", \"iccFile\": \"adobe/CMYK/WebCoatedFOGRA28.icc\", \"printSpeedBlack\": 15, \"printSpeedColor\": 9.3, \"maxInputCapacity\": 500, \"maxMonthlyDutyCycle\": 12000, \"autoDuplex\": \"Yes\", \"inkCyanPrice\": 17.09, \"inkCyanYield\": 470, \"inkMagentaPrice\": 17.09, \"inkMagentaYield\": 470, \"inkYellowPrice\": 17.09, \"inkYellowYield\": 470, \"inkBlackPrice\": 18.99, \"inkBlackYield\": 385 }, \"options\": { \"paper\": \"-1\", \"dpi\": \"100\", \"printer\": \"3\", \"mode\": \"grayscale\" } } ]",
-			"[ { \"result\": { \"magenta\": 15.5, \"cyan\": 17.39, \"yellow\": 29.78, \"tcpp\": 1.55, \"black\": 32.88 }, \"printer\": { \"id\": 4, \"brand\": \"Canon\", \"type\": \"Color Inkjet\", \"title\": \"Canon Pixma MG8220\", \"image\": \"http://15.125.96.127:8080/upload/printer/focanonmg8220.png\", \"price\": 245.39, \"url\": \"\", \"ppi\": null, \"functions\": \"Print,Copy,Scan,Fax\", \"iccFile\": \"adobe/CMYK/WebCoatedFOGRA28.icc\", \"printSpeedBlack\": 15, \"printSpeedColor\": 9.3, \"maxInputCapacity\": 500, \"maxMonthlyDutyCycle\": 12000, \"autoDuplex\": \"Yes\", \"inkCyanPrice\": 13.33, \"inkCyanYield\": 466, \"inkMagentaPrice\": 13.33, \"inkMagentaYield\": 447, \"inkYellowPrice\": 13.33, \"inkYellowYield\": 478, \"inkBlackPrice\": 15.99, \"inkBlackYield\": 311 }, \"options\": { \"paper\": \"-1\", \"dpi\": \"100\", \"printer\": \"4\", \"mode\": \"grayscale\" } } ]",
-			"[ { \"result\": { \"magenta\": 15.5, \"cyan\": 17.39, \"yellow\": 29.78, \"tcpp\": 0.69, \"black\": 32.88 }, \"printer\": { \"id\": 5, \"brand\": \"HP\", \"type\": \"Color Inkjet\", \"title\": \"HP DesignJet 30\", \"image\": \"http://15.125.96.127:8080/upload/printer/fidesignjet30.png\", \"price\": 1399.99, \"url\": \"\", \"ppi\": null, \"functions\": \"Print,Copy,Scan,Fax\", \"iccFile\": \"adobe/CMYK/WebCoatedFOGRA28.icc\", \"printSpeedBlack\": 15, \"printSpeedColor\": 9.3, \"maxInputCapacity\": 500, \"maxMonthlyDutyCycle\": 12000, \"autoDuplex\": \"Yes\", \"inkCyanPrice\": 32.78, \"inkCyanYield\": 1200, \"inkMagentaPrice\": 32.78, \"inkMagentaYield\": 1200, \"inkYellowPrice\": 32.78, \"inkYellowYield\": 1200, \"inkBlackPrice\": 45.99, \"inkBlackYield\": 2000 }, \"options\": { \"paper\": \"-1\", \"dpi\": \"100\", \"printer\": \"5\", \"mode\": \"grayscale\" } } ]",
-			"[ { \"result\": { \"magenta\": 15.5, \"cyan\": 17.39, \"yellow\": 29.78, \"tcpp\": 0.14, \"black\": 32.88 }, \"printer\": { \"id\": 6, \"brand\": \"HP\", \"type\": \"Color Laserjet\", \"title\": \"HP Color LaserJet CM6040 MFP\", \"image\": \"http://15.125.96.127:8080/upload/printer/laserjet_cm6040.png\", \"price\": 11190.5, \"url\": \"\", \"ppi\": null, \"functions\": \"Print,Copy,Scan\", \"iccFile\": \"adobe/CMYK/WebCoatedFOGRA28.icc\", \"printSpeedBlack\": 15, \"printSpeedColor\": 15, \"maxInputCapacity\": 500, \"maxMonthlyDutyCycle\": 12000, \"autoDuplex\": \"Yes\", \"inkCyanPrice\": 90, \"inkCyanYield\": 21000, \"inkMagentaPrice\": 90, \"inkMagentaYield\": 21000, \"inkYellowPrice\": 90, \"inkYellowYield\": 21000, \"inkBlackPrice\": 90, \"inkBlackYield\": 19500 }, \"options\": { \"paper\": \"-1\", \"dpi\": \"100\", \"printer\": \"6\", \"mode\": \"grayscale\" } } ]"
-	};
-	
 	private ProgressDialog dialog;
 
 	@Override
@@ -94,9 +78,7 @@ public class ResultActivity extends Activity {
 		overridePendingTransition(R.anim.lefttorightvisible, R.anim.lefttorightinvisible);
 		setContentView(R.layout.activity_result);
 		
-		PrintersUtilRef pu = PrintersUtilRef.getInstance();
-		rd = (ResultData)getIntent().getParcelableExtra("rd");
-		printer = String.valueOf(pu.getSelectedPrinterId());
+		final PrintersUtilRef pu = PrintersUtilRef.getInstance();
 		
 		tvMagenta = (TextView)findViewById(R.id.tvMagenta);
 		tvCyan = (TextView)findViewById(R.id.tvCyan);
@@ -122,31 +104,37 @@ public class ResultActivity extends Activity {
 		TextView tvRsPageSize = (TextView)findViewById(R.id.tvRsPageSize);
 		tvRsPageSize.setText(pu.getPageSize());
 		Log.d("paper", pu.getPageSize());
-		if(pu.getPageSize().equals("Actual Size"))
+		if(pu.getPageSize().equals("-1"))
 		{
-			pageSize = String.valueOf(-1);
+			tvRsPageSize.setText("Actual Size");
 		}
 		else
 		{
-			pageSize = pu.getPageSize().replace("A", "");
-			Log.d("options", "selected PrintMode:" + pu.getPageSize());
+			tvRsPageSize.setText("A" + pu.getPageSize());
 		}
 		
 		TextView tvRsImageResolution = (TextView)findViewById(R.id.tvRsImageResolution);
-		tvRsImageResolution.setText(pu.getImageResolution());
-		imageResolution = pu.getImageResolution().replace(" DPI", "");
+		tvRsImageResolution.setText(pu.getImageResolution() + " DPI");
 		Log.d("options", "selected IM:" + pu.getImageResolution());
 		
 		TextView tvRsPrintMode = (TextView)findViewById(R.id.tvRsPrintMode);
-		tvRsPrintMode.setText(pu.getPrintMode());
-		printMode = pu.getPrintMode().toLowerCase();
+		if(pu.getPrintMode().equals("color"))
+			tvRsPrintMode.setText("Color");
+		else
+			tvRsPrintMode.setText("Grayscale");
 		Log.d("options", "selected PM:" + pu.getPrintMode());
 		
 		final TextView tvRsPrintVolume = (TextView)findViewById(R.id.tvRsPrintVolume);
-		tvRsPrintVolume.setText(String.valueOf( printVolume ) + " pc");
+		if(pu.getPrintVolume() == 1)
+			tvRsPrintVolume.setText(pu.getPrintVolume() + " pc");
+		else
+			tvRsPrintVolume.setText(pu.getPrintVolume() + " pcs");
 		
 		final TextView tvRsPrintPeriod = (TextView)findViewById(R.id.tvRsPrintPeriod);
-		tvRsPrintPeriod.setText(String.valueOf(printPeriod) + " day");
+		if(pu.getPrintPeriod() == 1)
+			tvRsPrintPeriod.setText(pu.getPrintPeriod() + " Day");
+		else
+			tvRsPrintPeriod.setText(pu.getPrintPeriod() + " Days");
 		
 		ImageView ivResultImage = (ImageView)findViewById(R.id.ivResultImage);
 		if(pu.getImagePath() != null && !pu.getImagePath().isEmpty())
@@ -166,7 +154,7 @@ public class ResultActivity extends Activity {
 		}
 		
 		sbVolume = (SeekBar)findViewById(R.id.sbVolume);
-		sbVolume.setProgress(printVolume);
+		sbVolume.setProgress(pu.getPrintVolume());
 		sbVolume.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 			
 			@Override
@@ -185,7 +173,7 @@ public class ResultActivity extends Activity {
 			public void onProgressChanged(SeekBar seekBar, int progress,
 					boolean fromUser) {				
 				// TODO Auto-generated method stub
-				printVolume = progress;
+				int printVolume = progress;
 				if(printVolume >= 2)
 					tvRsPrintVolume.setText(String.valueOf(printVolume) + " pcs");
 				else
@@ -193,12 +181,13 @@ public class ResultActivity extends Activity {
 					printVolume = 1;
 					tvRsPrintVolume.setText(String.valueOf(printVolume) + " pc");
 				}
+				pu.setPrintVolume(printVolume);
 				calculateCost();
 			}
 		});
 		
 		SeekBar sbPeriod = (SeekBar)findViewById(R.id.sbPeriod);
-		sbPeriod.setProgress(printPeriod);
+		sbPeriod.setProgress(pu.getPrintPeriod());
 		sbPeriod.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 			
 			@Override
@@ -217,7 +206,7 @@ public class ResultActivity extends Activity {
 			public void onProgressChanged(SeekBar seekBar, int progress,
 					boolean fromUser) {
 				// TODO Auto-generated method stub
-				printPeriod = progress;
+				int printPeriod = progress;
 				if(printPeriod >= 2)
 					tvRsPrintPeriod.setText(String.valueOf(printPeriod) + " days");
 				else
@@ -225,6 +214,7 @@ public class ResultActivity extends Activity {
 					printPeriod = 1;
 					tvRsPrintPeriod.setText(String.valueOf(printPeriod) + " day");
 				}
+				pu.setPrintPeriod(printPeriod);
 				calculateCost();
 			}
 		});
@@ -246,7 +236,7 @@ public class ResultActivity extends Activity {
             	BigDecimal tcpp = new BigDecimal(rd.getTcpp()).setScale(2, BigDecimal.ROUND_HALF_UP);
             	tvRsIcpp.setText("$ " + tcpp.toString());
             	
-            	double tpc = gTcpp * (double)printVolume * (double)printPeriod;
+            	double tpc = gTcpp * (double)PrintersUtilRef.getPrintVolume() * (double)PrintersUtilRef.getPrintPeriod();
             	BigDecimal tpcD = new BigDecimal(tpc).setScale(2, BigDecimal.ROUND_HALF_UP);
             	tvRsTPC.setText( "$ " + tpcD.toString());
             	Log.d("tpcd", "tpcd " + tpcD);
@@ -286,10 +276,7 @@ public class ResultActivity extends Activity {
 	{
 		double totalCost = 0;
 		double totalCostnPrinter = 0;
-		totalCost = gTcpp * (double)printPeriod * (double)printVolume;
-		Log.d("calculate", "total Cost " + totalCost);
-		Log.d("printPeriod", "printperiod " + printPeriod);
-		Log.d("calculate", "Print Volume " + printVolume);
+		totalCost = gTcpp * (double)PrintersUtilRef.getPrintPeriod() * (double)PrintersUtilRef.getPrintVolume();
 		
 		totalCostnPrinter = totalCost + gPrinterPrice;
 		
@@ -356,10 +343,10 @@ public class ResultActivity extends Activity {
                 File imgFile = new File(PrintersUtilRef.getImagePath());
                 multipartEntity.addBinaryBody("img", imgFile, ContentType.create("image/jpeg"), imgFile.getName());
                
-                multipartEntity.addPart("paper", new StringBody(pageSize, ContentType.TEXT_PLAIN));
-                multipartEntity.addPart("dpi", new StringBody(imageResolution, ContentType.TEXT_PLAIN));
-                multipartEntity.addPart("mode", new StringBody(printMode, ContentType.TEXT_PLAIN));
-                multipartEntity.addPart("printer", new StringBody(printer, ContentType.TEXT_PLAIN));
+                multipartEntity.addPart("paper", new StringBody(PrintersUtilRef.getPageSize(), ContentType.TEXT_PLAIN));
+                multipartEntity.addPart("dpi", new StringBody(PrintersUtilRef.getImageResolution(), ContentType.TEXT_PLAIN));
+                multipartEntity.addPart("mode", new StringBody(PrintersUtilRef.getPrintMode(), ContentType.TEXT_PLAIN));
+                multipartEntity.addPart("printer", new StringBody(String.valueOf(PrintersUtilRef.getSelectedPrinterId()), ContentType.TEXT_PLAIN));
                 
                 httpPost.setEntity(multipartEntity.build());
 

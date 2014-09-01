@@ -267,7 +267,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_span="4"
-                        android:max="100"
+                        android:max="1000"
                         android:progress="1" />
                 </TableRow>
 
@@ -320,7 +320,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_span="4"
-                        android:max="100"
+                        android:max="10000"
                         android:progress="1" />
                 </TableRow>
             </TableLayout>
