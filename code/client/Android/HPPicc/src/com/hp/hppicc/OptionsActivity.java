@@ -154,7 +154,7 @@ public class OptionsActivity extends Activity {
 						}
 						else
 						{
-							pu.setPrintPeriod(progress);
+							pu.setPrintPeriod(1);
 							tvOpPrintPeriod.setText( pu.getPrintPeriod() + " Day");
 						}
 						calculateTotalPrint();
@@ -214,7 +214,7 @@ public class OptionsActivity extends Activity {
 		
 		if(PrintersUtilRef.getPrintPeriod() == 1)
 			days = " Day";
-		if(PrintersUtilRef.getPrintVolume() == 1 )
+		if(totalPrint == 1 )
 			pcs = " pc";
 		
 		tvTotalPrint.setText( String.valueOf(totalPrint) + pcs + " in \n" + PrintersUtilRef.getPrintPeriod() + days);

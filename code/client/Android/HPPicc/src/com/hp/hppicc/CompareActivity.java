@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
+import java.net.URI;
 import java.util.ArrayList;
 
 import org.apache.http.HttpResponse;
@@ -301,7 +302,7 @@ public class CompareActivity extends Activity {
             		trPrice.addView(tvPrice, i + 1);
             		tvPrice.setGravity(Gravity.CENTER);
             		
-            		BigDecimal icpp = new BigDecimal(resultDd.getTcpp()).setScale(2,BigDecimal.ROUND_HALF_UP);
+            		BigDecimal icpp = new BigDecimal(resultDd.getTcpp()).setScale(6,BigDecimal.ROUND_HALF_UP);
             		tvIcpp.setText("$ " + icpp.toString());
             		trIcpp.addView(tvIcpp, i + 1);
             		tvIcpp.setGravity(Gravity.CENTER);
@@ -385,8 +386,11 @@ public class CompareActivity extends Activity {
         protected String doInBackground(Void... unsued) {
             try {
             	
+            	String url = String.valueOf(R.string.RetrievePictureInfo);
+            	URI retrieveData  = new URI(url);
+            	
                 HttpClient httpClient = new DefaultHttpClient();
-                HttpPost httpPost = new HttpPost("http://15.125.96.127:8080/picc/cmyk/image");
+                HttpPost httpPost = new HttpPost("http://15.125.96.127/picc/cmyk/image");
  
                 MultipartEntityBuilder multipartEntity = MultipartEntityBuilder.create();
                 multipartEntity.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);

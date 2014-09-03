@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URI;
 import java.util.ArrayList;
 
 import org.apache.http.HttpResponse;
@@ -177,7 +178,10 @@ public class GetPrintersActivity extends Activity {
 		if (mTask != null && mTask.getStatus() != HttpAsyncTask.Status.FINISHED) {
 			mTask.cancel(true);
 		}
-		mTask = (HttpAsyncTask) new HttpAsyncTask().execute("http://15.125.96.127:8080/picc/printer/query");
+		
+//		String url[] = {String.valueOf(R.string.getPrinters)};
+
+		mTask = (HttpAsyncTask) new HttpAsyncTask().execute("http://15.125.96.127/picc/printer/query");
 	}
 
 	@Override

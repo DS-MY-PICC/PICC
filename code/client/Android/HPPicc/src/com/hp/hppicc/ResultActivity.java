@@ -29,6 +29,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -233,7 +234,7 @@ public class ResultActivity extends Activity {
             	rd = new ResultData( json.getJSONObject(0) );
             		
             	gTcpp = rd.getTcpp();
-            	BigDecimal tcpp = new BigDecimal(rd.getTcpp()).setScale(2, BigDecimal.ROUND_HALF_UP);
+            	BigDecimal tcpp = new BigDecimal(rd.getTcpp()).setScale(6, BigDecimal.ROUND_HALF_UP);
             	tvRsIcpp.setText("$ " + tcpp.toString());
             	
             	double tpc = gTcpp * (double)PrintersUtilRef.getPrintVolume() * (double)PrintersUtilRef.getPrintPeriod();
@@ -335,7 +336,7 @@ public class ResultActivity extends Activity {
             try {
             	
                 HttpClient httpClient = new DefaultHttpClient();
-                HttpPost httpPost = new HttpPost("http://15.125.96.127:8080/picc/cmyk/upload/image");
+                HttpPost httpPost = new HttpPost("http://15.125.96.127/picc/cmyk/upload/image");
  
                 MultipartEntityBuilder multipartEntity = MultipartEntityBuilder.create();
                 multipartEntity.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
@@ -386,7 +387,6 @@ public class ResultActivity extends Activity {
                 if (sResponse != null) {
                 	Log.d("resutl", "result sresponse" + sResponse);
                 	calculateOffLine(sResponse);
-                	JSONArray json = new JSONArray( sResponse ); 					
                 }
             } catch (Exception e) {
 //                Toast.makeText(getApplicationContext(), e.getClass().getName(),
