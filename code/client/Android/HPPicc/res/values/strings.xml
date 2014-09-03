@@ -17,5 +17,7 @@
     <string name="pageSize">Page Size</string>
     <string name="title_activity_multiple_printer">MultiplePrinterActivity</string>
     <string name="title_activity_compare">CompareActivity</string>
+    <string name="getPrinters">http://15.125.96.127/picc/printer/query</string>
+    <string name="RetrievePictureInfo">http://15.125.96.127/picc/cmyk/image</string>
 
 </resources>
