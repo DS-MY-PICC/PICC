@@ -35,7 +35,6 @@
             android:layout_height="90dp"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/imagetesting"
             android:background="#0096d6" />
     </RelativeLayout>
 

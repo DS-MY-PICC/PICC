@@ -7,6 +7,8 @@ import java.util.HashMap;
 
 import org.json.JSONObject;
 
+
+
 import com.hp.hppicc.R;
 import com.hp.hppicc.dataDefinition.ResultData;
 
@@ -36,12 +38,12 @@ public final class PrintersUtilRef {
 	private static int selectedPrinterImage;
 	
 	public static final int[] imageId = {
-			R.drawable.oofficejet6600,
-			R.drawable.tphotosmart7520,
-			R.drawable.thepsonwf3520,
-			R.drawable.focanonmg8220,
-			R.drawable.fidesignjet30,
-			R.drawable.silaserjetcm6040
+		R.drawable.oofficejet6600,
+		R.drawable.tphotosmart7520,
+		R.drawable.thepsonwf3520,
+		R.drawable.focanonmg8220,
+		R.drawable.fidesignjet30,
+		R.drawable.silaserjetcm6040
 	};
 	
 	public static void addPrinterResultData(int key, ResultData value)
