@@ -390,7 +390,7 @@ public class CompareActivity extends Activity {
             	URI retrieveData  = new URI(url);
             	
                 HttpClient httpClient = new DefaultHttpClient();
-                HttpPost httpPost = new HttpPost("http://15.125.96.127/picc/cmyk/image");
+                HttpPost httpPost = new HttpPost("http://15.125.69.222/picc/cmyk/image");
  
                 MultipartEntityBuilder multipartEntity = MultipartEntityBuilder.create();
                 multipartEntity.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);

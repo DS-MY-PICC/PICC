@@ -181,7 +181,7 @@ public class GetPrintersActivity extends Activity {
 		
 //		String url[] = {String.valueOf(R.string.getPrinters)};
 
-		mTask = (HttpAsyncTask) new HttpAsyncTask().execute("http://15.125.96.127/picc/printer/query");
+		mTask = (HttpAsyncTask) new HttpAsyncTask().execute("http://15.125.69.222/picc/printer/query");
 	}
 
 	@Override
